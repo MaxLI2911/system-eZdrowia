@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="logiczny" id="94B4D2C6-928B-E201-2D61-644DC7BF74F4" version="3.5">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-26 21:19:14 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>94B4D2C6-928B-E201-2D61-644DC7BF74F4</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="94B4D2C6-928B-E201-2D61-644DC7BF74F4">
+<designStoragePath>D:\2026L\BD2(d)\bd2_09\logiczny</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
+</OSDM_Design>
