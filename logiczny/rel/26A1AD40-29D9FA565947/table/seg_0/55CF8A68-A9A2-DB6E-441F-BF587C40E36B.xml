@@ -1,0 +1,128 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="55CF8A68-A9A2-DB6E-441F-BF587C40E36B" name="Skierowania">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:34:43 UTC</createdTime>
+<generatorID>A9AC2AF1-4168-7CC0-EEE8-23F4FFDE5301</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="numer" id="2283B5E2-D980-1559-D22D-225D23F37FCC">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:59:44 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_pacjenta" id="3D5F95B4-C9A3-4283-9E30-5B6166CA75DC">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:39 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4657FCDA-8DAB-39B7-3D88-E8D581B6A5BE" referredColumn="FF51735C-725B-B456-C538-38923D8C2FC3"/>
+</associations>
+</Column>
+<Column name="id_lekarza" id="2EEDC873-1281-8560-2F70-467F14C8B2AE">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="372F1E1C-F337-0337-D164-F47570B6DAA5" referredColumn="039DFBC2-AD4C-4922-1F54-92BFD9FB2047"/>
+</associations>
+</Column>
+<Column name="data_wystaw" id="B2806529-A9B4-4496-D656-856723060FC7">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:55:32 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="opis" id="DEF739FB-8F2C-D900-A6F0-6CB179AA96E2">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:54:59 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_uslugi" id="9CCC205F-D9A9-318A-0F66-18EBDEBB8D38">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:56:13 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DAC0CBE9-EB5F-E55D-82BF-CF44AEB105AB" referredColumn="02DBD83F-1F9B-8BDB-CBD7-B57943718FE0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="74D8DECF-BCE5-698C-D6B5-EFCEB966B41C" name="Skierowania_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:59:44 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2283B5E2-D980-1559-D22D-225D23F37FCC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1B3B2C7F-1DBA-2046-A0EC-9D5E7D092240" name="Skieorwania_Pacjenci_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:39 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3D5F95B4-C9A3-4283-9E30-5B6166CA75DC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0CBFDFAA-3A5B-F0A9-0A2A-F192D0514425" name="Skieorwania_Lekarze_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2EEDC873-1281-8560-2F70-467F14C8B2AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BC15FA84-BE8D-5DBF-5AC3-2F21E5B98F8E" name="Skierowania_Uslugi_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:56:13 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9CCC205F-D9A9-318A-0F66-18EBDEBB8D38"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

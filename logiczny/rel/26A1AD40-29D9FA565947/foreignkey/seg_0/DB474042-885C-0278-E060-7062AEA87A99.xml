@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="DB474042-885C-0278-E060-7062AEA87A99" containerWithKeyObject="4E034D3A-4AAE-0C98-7D9D-C176329C5367" localFKIndex="719EB8E9-7DFB-2D49-1FB3-46BF22354653" name="Pozycje_recept_Leki_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:51:21 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<referredTableLongName>Leki</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F2131DE1-3200-0B01-B6DE-6C57EB2B9B7F</referredTableID>
+<keyObject>2030CACA-9311-E960-414A-B1E82E3C2498</keyObject>
+<referredKeyID>2030CACA-9311-E960-414A-B1E82E3C2498</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_leku</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

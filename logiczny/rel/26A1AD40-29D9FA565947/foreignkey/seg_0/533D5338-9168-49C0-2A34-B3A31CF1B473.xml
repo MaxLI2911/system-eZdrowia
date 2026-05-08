@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="533D5338-9168-49C0-2A34-B3A31CF1B473" containerWithKeyObject="4E034D3A-4AAE-0C98-7D9D-C176329C5367" localFKIndex="4F571A38-C779-FC74-F8E6-87209F842856" name="Pozycje_recept_Recepty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>2D2A2AD3-BFE0-83DF-415E-71E70238C158</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<referredTableLongName>Recepty</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>09214EF7-B987-B94E-6472-3A4F776A82B6</referredTableID>
+<keyObject>7AED90D2-C7C2-6980-EE42-D32AC57E7207</keyObject>
+<referredKeyID>7AED90D2-C7C2-6980-EE42-D32AC57E7207</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Recepty_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

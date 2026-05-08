@@ -1,0 +1,118 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4E034D3A-4AAE-0C98-7D9D-C176329C5367" name="Pozycje_recept">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>11232CEA-A0C6-13ED-1615-40B7EBA82132</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_recepty" id="6AF70C54-25AC-5B81-D374-430763466789">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="533D5338-9168-49C0-2A34-B3A31CF1B473" referredColumn="F734843D-2D54-55A1-4D27-564E86BD351A"/>
+</associations>
+</Column>
+<Column name="Lp" id="E157094C-89F9-7CD1-9063-1084A7CC5F71">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:49:53 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_leku" id="C74C0087-5296-DC90-8208-F7644439629C">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:51:21 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DB474042-885C-0278-E060-7062AEA87A99" referredColumn="75F8CFAB-55C7-5AA5-B27F-0CCA372097D2"/>
+</associations>
+</Column>
+<Column name="ilosc" id="8CB7226D-E14C-73E0-138C-DF0D348561AB">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:49:53 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dawkowanie" id="1A56547D-87FC-34E4-9994-5328A6936545">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:49:53 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="odpłatnosc" id="C88BA782-2402-5D3D-9E8B-4A478CADAEFD">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:49:53 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="08A4181A-72C4-B9B5-3DAE-9A0CF77B67E6" name="Pozycje_recept_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:49:53 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E157094C-89F9-7CD1-9063-1084A7CC5F71"/>
+<colUsage columnID="6AF70C54-25AC-5B81-D374-430763466789"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4F571A38-C779-FC74-F8E6-87209F842856" name="Pozycje_recept_Recepty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>2D2A2AD3-BFE0-83DF-415E-71E70238C158</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6AF70C54-25AC-5B81-D374-430763466789"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="719EB8E9-7DFB-2D49-1FB3-46BF22354653" name="Pozycje_recept_Leki_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:51:21 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C74C0087-5296-DC90-8208-F7644439629C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

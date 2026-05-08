@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="98A18B66-A19F-15D6-750C-CA709ED7FD1E" containerWithKeyObject="8924F811-07EB-7FDC-731D-C45F7717440F" localFKIndex="FF5346E2-DC6D-6C3D-E60C-69147141519E" name="Wizyty_Przychodnie_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>3C4C2AD2-7D7A-9B15-A84D-4D6E92DCEB54</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<referredTableLongName>Przychodnie</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>AD804C04-0B3E-43E8-9094-EE21089E9218</referredTableID>
+<keyObject>3EF86619-DC82-9512-EAB0-97380C63AA76</keyObject>
+<referredKeyID>3EF86619-DC82-9512-EAB0-97380C63AA76</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>Przychodnie_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

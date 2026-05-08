@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="12B42810-C077-1EEB-1EC6-37781C2C136A" name="Specjalizacje">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-27 18:13:24 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_specjaliz" id="0A62110A-2698-93AC-F506-2ED5AF59309F">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-27 18:14:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazwa" id="47EA6179-12CC-82CD-7042-6BF77C37DF5B">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-27 18:14:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3050F2FF-A049-9E44-098F-1B052EE6563F" name="Specjalizacje_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-27 18:14:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0A62110A-2698-93AC-F506-2ED5AF59309F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

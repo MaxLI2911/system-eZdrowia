@@ -1,0 +1,118 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C4C08661-7F84-F2C4-22FD-6066F4F01AD3" name="Płatnosci">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>B408AA8E-A258-2E48-3382-2258D494449E</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<ordsAlias>platnosci</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_platnosci" id="2DEDDAAC-A1B6-451D-23EA-A64EF393BCEB">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_wizyty" id="3C558178-5812-81EF-3BA0-B982A84A30C3">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="71BFBED5-2BF7-DF8B-3C44-0D16580F6641" referredColumn="5CAF7479-AA1B-8CB7-B1B9-605BEB336495"/>
+</associations>
+</Column>
+<Column name="kwota" id="4E4A7068-D546-751B-C486-239930437911">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="status" id="DBF0D9D6-29D7-56E0-E2BB-B8930A756DD9">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="data" id="48DE46F2-4EED-BF3E-E0E0-325488EBBD45">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="metoda" id="E512BBD9-331B-124B-9903-2D82B60AD649">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B5137CF7-F937-360B-DB40-D0BCBD1C4660" name="Płatnosci_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 14:44:35 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2DEDDAAC-A1B6-451D-23EA-A64EF393BCEB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C36A366B-C1C6-1D57-E8FD-2AF03436A35D" name="Płatnosci__IDX">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>C671F9D5-49E4-BF70-6359-17670C97FD83</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="3C558178-5812-81EF-3BA0-B982A84A30C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5791DB32-07DB-A8D5-AEA6-430EA6473B60" name="Płatnosci_Wizyty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>C671F9D5-49E4-BF70-6359-17670C97FD83</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3C558178-5812-81EF-3BA0-B982A84A30C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

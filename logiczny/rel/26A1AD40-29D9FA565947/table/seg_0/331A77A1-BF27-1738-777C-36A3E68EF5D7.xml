@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="331A77A1-BF27-1738-777C-36A3E68EF5D7" name="Pozycje_historii_leczenia">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>2A568957-B7C9-2DEF-0C3F-3A6457872BD5</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_historii" id="C212F603-416A-0D6A-122B-B133B6CB6A0F">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EFB1A68A-5F2E-2C4A-612E-FBBD3D2880D6" referredColumn="AC2F3123-F14D-4CBC-394F-F555E5948909"/>
+</associations>
+</Column>
+<Column name="Lp" id="38829E0D-E89A-54FD-6D6E-AEB54DA5BAF6">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:50:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_wizyty" id="C8ED80FB-CCC6-5D2A-10B3-B24046D062F5">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B229FD2F-96F5-054D-0D66-5F166FA01717" referredColumn="5CAF7479-AA1B-8CB7-B1B9-605BEB336495"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E0C997F7-7199-BAE9-7331-79A8E5810A28" name="Pozycje_historii_leczenia_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:51:05 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="38829E0D-E89A-54FD-6D6E-AEB54DA5BAF6"/>
+<colUsage columnID="C212F603-416A-0D6A-122B-B133B6CB6A0F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="746168B1-FEE1-6075-C829-1C137E4176AF" name="Pozycje_historii_leczenia__IDX">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>3F3E5694-282D-4C70-4E6B-00023BFB427E</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="C8ED80FB-CCC6-5D2A-10B3-B24046D062F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="98201425-705B-A2A8-A5E7-BC4081E40052" name="Pozycje_historii_leczenia_Historie_leczenia_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>03B97109-03C2-5F65-1919-9070743790E5</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C212F603-416A-0D6A-122B-B133B6CB6A0F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0D3E5F9B-7442-FD0F-EC75-DEB331860C40" name="Pozycje_historii_leczenia_Wizyty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>3F3E5694-282D-4C70-4E6B-00023BFB427E</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C8ED80FB-CCC6-5D2A-10B3-B24046D062F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

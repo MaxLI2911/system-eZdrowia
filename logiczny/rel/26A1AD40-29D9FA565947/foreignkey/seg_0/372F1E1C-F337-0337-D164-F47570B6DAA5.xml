@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="372F1E1C-F337-0337-D164-F47570B6DAA5" containerWithKeyObject="55CF8A68-A9A2-DB6E-441F-BF587C40E36B" localFKIndex="0CBFDFAA-3A5B-F0A9-0A2A-F192D0514425" name="Skieorwania_Lekarze_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:47 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<referredTableLongName>Lekarze</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E7487ED4-AF7C-3626-1A13-3D53B214D96E</referredTableID>
+<keyObject>911AEB6E-1CC2-B069-4B92-D86CF03100C4</keyObject>
+<referredKeyID>911AEB6E-1CC2-B069-4B92-D86CF03100C4</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_lekarza</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

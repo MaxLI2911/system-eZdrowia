@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="ACEC24E7-33D2-D2CE-FA55-EFD9E5535F64" name="Uslugi_w_wizytach">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<ordsAlias>relation_11</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_wizyty" id="83F0A385-45DF-C208-DA6D-2FC11C64FCFA">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="240F2FE2-C1D0-94ED-22F2-31328473EC98" referredColumn="5CAF7479-AA1B-8CB7-B1B9-605BEB336495"/>
+</associations>
+</Column>
+<Column name="id_usługi" id="F2C5C27B-E335-F123-1F1D-C2FAD9A26337">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EC2121B1-608B-58EE-AF4E-66A1C1C0777B" referredColumn="02DBD83F-1F9B-8BDB-CBD7-B57943718FE0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="83DDE05C-6AC1-A58F-41B4-F08D0BBE45CA" name="Relation_11_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83F0A385-45DF-C208-DA6D-2FC11C64FCFA"/>
+<colUsage columnID="F2C5C27B-E335-F123-1F1D-C2FAD9A26337"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5E91ACE4-AE10-29E1-0C6D-198596D68EDC" name="Relation_11_Wizyty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>FE1D1838-C72C-84FF-320C-D59682649170</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83F0A385-45DF-C208-DA6D-2FC11C64FCFA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F1D7763B-C0F3-0EF5-52EF-C39CFAF53D54" name="Relation_11_Usługi_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>FE1D1838-C72C-84FF-320C-D59682649170</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F2C5C27B-E335-F123-1F1D-C2FAD9A26337"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

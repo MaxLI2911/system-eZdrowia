@@ -1,0 +1,57 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F2131DE1-3200-0B01-B6DE-6C57EB2B9B7F" name="Leki">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:43:03 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<ordsAlias>table_26</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_leku" id="75F8CFAB-55C7-5AA5-B27F-0CCA372097D2">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:50:59 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazwa" id="FDC6D533-F028-0DF2-F2E3-1FAFA4B6BA4B">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:50:59 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="forma" id="00784CAC-382A-006C-1BD8-F27DF437B8D7">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:50:59 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2030CACA-9311-E960-414A-B1E82E3C2498" name="Leki_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:51:16 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="75F8CFAB-55C7-5AA5-B27F-0CCA372097D2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

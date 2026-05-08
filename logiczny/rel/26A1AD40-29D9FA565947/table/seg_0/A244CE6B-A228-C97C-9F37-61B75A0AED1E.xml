@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A244CE6B-A228-C97C-9F37-61B75A0AED1E" name="Historie_leczenia">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>ED9C651B-DF57-E9BC-1A57-3743F703CA4D</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_historii" id="AC2F3123-F14D-4CBC-394F-F555E5948909">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+<Column name="id_pacjenta" id="961945A2-754B-B9E8-969D-D044973417D0">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="65871333-225F-E0CC-97C4-87C3C01C5DFE" referredColumn="FF51735C-725B-B456-C538-38923D8C2FC3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="60182051-2BB8-B448-08E8-9824D864883E" name="Historie_leczenia_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="AC2F3123-F14D-4CBC-394F-F555E5948909"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8A09A3F9-C125-24E5-8BC0-F87883B756B5" name="Historie_leczenia__IDX">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>DC250F57-C954-08DA-3BD3-590F032FC24B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="961945A2-754B-B9E8-969D-D044973417D0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6EE58614-E8A0-019C-184A-484C55FA2F21" name="Historie_leczenia_Pacienci_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>DC250F57-C954-08DA-3BD3-590F032FC24B</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="961945A2-754B-B9E8-969D-D044973417D0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

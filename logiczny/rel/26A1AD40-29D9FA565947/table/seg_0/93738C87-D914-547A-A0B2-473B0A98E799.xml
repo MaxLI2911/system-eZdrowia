@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="93738C87-D914-547A-A0B2-473B0A98E799" name="Teleporady">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>F6151740-5271-02D8-3220-CE1081CEB908</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_telepor" id="895D4C65-F11A-8BFA-90FE-FDBB62B0F39B">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:17:29 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_wizyty" id="B45F87C1-9D81-26AA-CFE8-F3270AC7B1B9">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4C2FFDCA-9CF2-79F7-0440-D951E0DAE011" referredColumn="5CAF7479-AA1B-8CB7-B1B9-605BEB336495"/>
+</associations>
+</Column>
+<Column name="link" id="DA3A9347-75D8-4995-0592-75E54B0146E2">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:12:17 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="godzina_rozpocz" id="7D62CC41-1EA2-1C7E-050D-0A72726EA747">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:15:19 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="czas_trwania" id="ED53F498-9DD5-2FD8-17A2-47CD7AD469ED">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:15:19 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C0171052-A02D-B376-8855-C03C93C34959" name="Teleporady_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:18:03 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="895D4C65-F11A-8BFA-90FE-FDBB62B0F39B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6F779C5F-092C-64B4-B381-33E020F5FD06" name="Teleporady__IDX">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>F93E5D0B-D552-DB3C-93DB-FAC91D582013</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B45F87C1-9D81-26AA-CFE8-F3270AC7B1B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C8ACD72F-A27E-52BB-65FD-EC56BD2F1DBB" name="Teleporady_Wizyty_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>F93E5D0B-D552-DB3C-93DB-FAC91D582013</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B45F87C1-9D81-26AA-CFE8-F3270AC7B1B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

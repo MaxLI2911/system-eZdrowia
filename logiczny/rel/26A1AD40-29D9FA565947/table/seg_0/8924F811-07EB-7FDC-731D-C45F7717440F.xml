@@ -1,0 +1,166 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8924F811-07EB-7FDC-731D-C45F7717440F" name="Wizyty">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>723C4282-7544-91BB-28DC-F60C1F28020B</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_wizyty" id="5CAF7479-AA1B-8CB7-B1B9-605BEB336495">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+<Column name="id_pacjenta" id="C9CE4268-9414-250D-9DAA-A01C27CFE9D3">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2CAF8426-0A12-2293-022C-5864878CA7ED" referredColumn="FF51735C-725B-B456-C538-38923D8C2FC3"/>
+</associations>
+</Column>
+<Column name="id_lekarza" id="317E3EB9-9A56-82FF-08AE-67E21C53F37B">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:29:31 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="764661EF-596D-05E4-18F8-8A71B67F20B8" referredColumn="039DFBC2-AD4C-4922-1F54-92BFD9FB2047"/>
+</associations>
+</Column>
+<Column name="data" id="BDB4FC28-A0C6-14BB-2ABC-3EFDAC946B20">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:06:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="godzina" id="7D0EB0CF-D40F-B6C3-45CA-FFD9FE637066">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:06:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typ" id="05BCB561-198B-D21A-DB36-27AE78FBDE10">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:06:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="status" id="9D842952-293C-7817-7529-C9114BDF3DA1">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:06:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_przychodni" id="7D2D2E24-5144-78D0-0F46-29FBE0AC0093">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="98A18B66-A19F-15D6-750C-CA709ED7FD1E" referredColumn="7CE3D44F-8521-224A-A7EA-4DF407CB072A"/>
+</associations>
+</Column>
+<Column name="opis" id="0101764F-7370-4A36-145F-2E79E55CC001">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:06:58 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="64695768-B3AA-7251-935B-E1F31AEB65FD" name="Wizyty_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="5CAF7479-AA1B-8CB7-B1B9-605BEB336495"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0DAAD9B0-E4C9-5960-58BA-C54AD266EC26" name="Wizyty_Pacienci_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>CB7FBC97-E890-2513-EA36-777515296888</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C9CE4268-9414-250D-9DAA-A01C27CFE9D3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FF5346E2-DC6D-6C3D-E60C-69147141519E" name="Wizyty_Przychodnie_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>3C4C2AD2-7D7A-9B15-A84D-4D6E92DCEB54</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7D2D2E24-5144-78D0-0F46-29FBE0AC0093"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="204F0844-6CD4-D24F-719D-72F316A029DC" name="Wizyty_Lekarze_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:29:31 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="317E3EB9-9A56-82FF-08AE-67E21C53F37B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

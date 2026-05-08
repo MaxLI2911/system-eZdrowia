@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="09214EF7-B987-B94E-6472-3A4F776A82B6" name="Recepty">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<generatorID>52D5D607-122A-9716-96DC-FECC0E97BCC4</generatorID>
+<ownerDesignName>logiczny</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_recepty" id="F734843D-2D54-55A1-4D27-564E86BD351A">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+<Column name="data" id="086FB0A8-BF03-CA75-E7CE-882CD1709446">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:47:57 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_pacjenta" id="41CC3351-8424-06A1-BB9B-A2E63E612F97">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:21 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FD0104A5-EC93-5D48-36D5-D1E24A7A152A" referredColumn="FF51735C-725B-B456-C538-38923D8C2FC3"/>
+</associations>
+</Column>
+<Column name="id_lekarza" id="880329E2-B4B6-6525-B156-7329AA272034">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:29 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8289ACF9-5A2C-84F2-FBE6-F60481D334FA" referredColumn="039DFBC2-AD4C-4922-1F54-92BFD9FB2047"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7AED90D2-C7C2-6980-EE42-D32AC57E7207" name="Recepty_PK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 10:16:09 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="F734843D-2D54-55A1-4D27-564E86BD351A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="14626DDA-FB44-F64F-511A-380B228A79F1" name="Recepty_Pacjenci_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:21 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="41CC3351-8424-06A1-BB9B-A2E63E612F97"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2A5C40CB-95A4-A4AE-961F-83ABDC35F255" name="Recepty_Lekarze_FK">
+<createdBy>Uliana</createdBy>
+<createdTime>2026-04-28 11:52:29 UTC</createdTime>
+<ownerDesignName>logiczny</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="880329E2-B4B6-6525-B156-7329AA272034"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
