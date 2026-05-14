@@ -34,21 +34,22 @@ Automatyzacja finansowej strony usług medycznych.
 Pobiera cenę z tabeli `Usługi` przypisanej do danej wizyty.  
 Tworzy rekord w tabeli `Płatności` ze statusem "oczekująca".  
 
-`potwierdz_oplate(p_id_platnosci, p_metoda)`:
+`potwierdz_oplate(p_id_platnosci, p_metoda)`:  
 Aktualizuje status płatności na "opłacona" i zapisuje datę transakcji.  
 
 ## Funkcje analityczne i pomocnicze
 Zgodnie z zapotrzebowaniem na funkcje raportowe.  
 
-`fn_czy_lekarz_dostepny(p_id_lekarza, p_data, p_godzina)`:
+`fn_czy_lekarz_dostepny(p_id_lekarza, p_data, p_godzina)`:  
 Zwraca wartość logiczną (true/false) sprawdzając, czy lekarz nie ma innej wizyty w tym samym czasie.
 
-`fn_pobierz_historie_pacjenta(p_id_pacjenta)`:
+`fn_pobierz_historie_pacjenta(p_id_pacjenta)`:  
 Zwraca sformatowany zbiór danych zawierający wszystkie przebyte wizyty, rozpoznania oraz wystawione recepty dla danego pacjenta.  
 
-`fn_raport_oblozenia_przychodni(p_id_przych, p_data_od, p_data_do)`:
+`fn_raport_oblozenia_przychodni(p_id_przych, p_data_od, p_data_do)`:  
 Oblicza liczbę zrealizowanych wizyt w danej placówce w zadanym okresie.  
 
 ## Bezpieczeństwo i administracja  
-`zarejestruj_uzytkownika(p_login, p_haslo, p_rola)`:
-Tworzy konto w tabeli `Użytkowniki`.  W zależności od roli (np. "Pacjent", "Lekarz"), wymusza utworzenie odpowiedniego profilu w powiązanych tabelach.
+`zarejestruj_uzytkownika(p_login, p_haslo, p_rola)`:  
+Tworzy konto w tabeli `Użytkowniki`.  
+W zależności od roli (np. "Pacjent", "Lekarz"), wymusza utworzenie odpowiedniego profilu w powiązanych tabelach.
