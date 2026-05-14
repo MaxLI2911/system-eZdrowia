@@ -1,7 +1,7 @@
 # Przedstawienie części procedur/funkcji składowanych bazy danych, które zostaną opracowane. 
 
 ## Zarządzanie wizytami i konsultacjami  
-Te procedury obsługują cykl życia wizyty lekarskiej, w tym teleporad.   
+Procedury obsługujące cykl życia wizyty lekarskiej, w tym teleporad.   
 
 `umow_wizyte(p_id_pacjenta, p_id_lekarza, p_data, p_godzina, p_typ)`:  
 - Tworzy nowy wpis w tabeli `Wizyty`.  
@@ -45,7 +45,6 @@ Automatyzacja finansowej strony usług medycznych.
 - Aktualizuje status płatności na "opłacona" i zapisuje datę transakcji.  
 
 ## Funkcje analityczne i pomocnicze
-Zgodnie z zapotrzebowaniem na funkcje raportowe.  
 
 `fn_czy_lekarz_dostepny(p_id_lekarza, p_data, p_godzina)`:  
 - Zwraca wartość logiczną (true/false) sprawdzając, czy lekarz nie ma innej wizyty w tym samym czasie.
