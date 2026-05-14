@@ -1,6 +1,6 @@
-#Przedstawienie części procedur/funkcji składowanych bazy danych, które zostaną opracowane. 
+##Przedstawienie części procedur/funkcji składowanych bazy danych, które zostaną opracowane. 
 
-##Zarządzanie wizytami i konsultacjami  
+#Zarządzanie wizytami i konsultacjami  
 Te procedury obsługują cykl życia wizyty lekarskiej, w tym teleporad.   
 
 `umow_wizyte(p_id_pacjenta, p_id_lekarza, p_data, p_godzina, p_typ)`:  
