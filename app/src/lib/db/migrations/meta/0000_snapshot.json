@@ -1,0 +1,634 @@
+{
+  "id": "0cdde8f8-61e8-4a4f-939d-f10044fe8f2d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.historie_leczenia": {
+      "name": "historie_leczenia",
+      "schema": "",
+      "columns": {
+        "id_historii": {
+          "name": "id_historii",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_pacjenta": {
+          "name": "id_pacjenta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.lekarze": {
+      "name": "lekarze",
+      "schema": "",
+      "columns": {
+        "id_lekarza": {
+          "name": "id_lekarza",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "imie": {
+          "name": "imie",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nazwisko": {
+          "name": "nazwisko",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "telefon": {
+          "name": "telefon",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_specjaliz": {
+          "name": "id_specjaliz",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.leki": {
+      "name": "leki",
+      "schema": "",
+      "columns": {
+        "id_leku": {
+          "name": "id_leku",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nazwa": {
+          "name": "nazwa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "forma": {
+          "name": "forma",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pacjenci": {
+      "name": "pacjenci",
+      "schema": "",
+      "columns": {
+        "id_pacjenta": {
+          "name": "id_pacjenta",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "imie": {
+          "name": "imie",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nazwisko": {
+          "name": "nazwisko",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numer_dokum": {
+          "name": "numer_dokum",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_urodz": {
+          "name": "data_urodz",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plec": {
+          "name": "plec",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "telefon": {
+          "name": "telefon",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.platnosci": {
+      "name": "platnosci",
+      "schema": "",
+      "columns": {
+        "id_platnosci": {
+          "name": "id_platnosci",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_wizyty": {
+          "name": "id_wizyty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kwota": {
+          "name": "kwota",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data": {
+          "name": "data",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metoda": {
+          "name": "metoda",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pozycje_historii_leczenia": {
+      "name": "pozycje_historii_leczenia",
+      "schema": "",
+      "columns": {
+        "id_historii": {
+          "name": "id_historii",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Lp": {
+          "name": "Lp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_wizyty": {
+          "name": "id_wizyty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pozycje_recept": {
+      "name": "pozycje_recept",
+      "schema": "",
+      "columns": {
+        "id_recepty": {
+          "name": "id_recepty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Lp": {
+          "name": "Lp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_leku": {
+          "name": "id_leku",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ilosc": {
+          "name": "ilosc",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dawkowanie": {
+          "name": "dawkowanie",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "odpłatnosc": {
+          "name": "odpłatnosc",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.przychodnie": {
+      "name": "przychodnie",
+      "schema": "",
+      "columns": {
+        "id_przychodni": {
+          "name": "id_przychodni",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nazwa": {
+          "name": "nazwa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "miasto": {
+          "name": "miasto",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adres": {
+          "name": "adres",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.recepty": {
+      "name": "recepty",
+      "schema": "",
+      "columns": {
+        "id_recepty": {
+          "name": "id_recepty",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_pacjenta": {
+          "name": "id_pacjenta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_lekarza": {
+          "name": "id_lekarza",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.skierowania": {
+      "name": "skierowania",
+      "schema": "",
+      "columns": {
+        "numer": {
+          "name": "numer",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_pacjenta": {
+          "name": "id_pacjenta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_lekarza": {
+          "name": "id_lekarza",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_wystaw": {
+          "name": "data_wystaw",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "opis": {
+          "name": "opis",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_uslugi": {
+          "name": "id_uslugi",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.specjalizacje": {
+      "name": "specjalizacje",
+      "schema": "",
+      "columns": {
+        "id_specjaliz": {
+          "name": "id_specjaliz",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nazwa": {
+          "name": "nazwa",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.teleporady": {
+      "name": "teleporady",
+      "schema": "",
+      "columns": {
+        "id_telepor": {
+          "name": "id_telepor",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_wizyty": {
+          "name": "id_wizyty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "link": {
+          "name": "link",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "godzina_rozpocz": {
+          "name": "godzina_rozpocz",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "czas_trwania": {
+          "name": "czas_trwania",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.uslugi": {
+      "name": "uslugi",
+      "schema": "",
+      "columns": {
+        "id_uslugi": {
+          "name": "id_uslugi",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nazwa": {
+          "name": "nazwa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cena": {
+          "name": "cena",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wymaga_skierow": {
+          "name": "wymaga_skierow",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.uslugi_w_wizytach": {
+      "name": "uslugi_w_wizytach",
+      "schema": "",
+      "columns": {
+        "id_wizyty": {
+          "name": "id_wizyty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_uslugi": {
+          "name": "id_uslugi",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.wizyty": {
+      "name": "wizyty",
+      "schema": "",
+      "columns": {
+        "id_wizyty": {
+          "name": "id_wizyty",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_pacjenta": {
+          "name": "id_pacjenta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_lekarza": {
+          "name": "id_lekarza",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "godzina": {
+          "name": "godzina",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "typ": {
+          "name": "typ",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_przychodni": {
+          "name": "id_przychodni",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opis": {
+          "name": "opis",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
