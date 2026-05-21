@@ -1,0 +1,36 @@
+import {
+  historie_leczenia,
+  lekarze,
+  leki,
+  pacjenci,
+  platnosci,
+  pozycje_historii_leczenia,
+  pozycje_recept,
+  przychodnie,
+  recepty,
+  skierowania,
+  specjalizacje,
+  teleporady,
+  uslugi,
+  uslugi_w_wizytach,
+  wizyty,
+} from "@/lib/db/schema";
+import type { EntityKey } from "@/lib/entities";
+
+export const ENTITY_TABLES: Record<EntityKey, unknown> = {
+  pacjenci,
+  lekarze,
+  wizyty,
+  recepty,
+  pozycje_recept,
+  leki,
+  platnosci,
+  przychodnie,
+  uslugi,
+  uslugi_w_wizytach,
+  teleporady,
+  specjalizacje,
+  historie_leczenia,
+  pozycje_historii_leczenia,
+  skierowania,
+};
