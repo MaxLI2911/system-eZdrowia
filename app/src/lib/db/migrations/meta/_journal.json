@@ -8,6 +8,13 @@
       "when": 1779356208645,
       "tag": "0000_free_the_fallen",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779437665245,
+      "tag": "0001_brief_luckman",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { faker } from "@faker-js/faker";
 import { db } from ".";
 import * as schema from "./schema";
 
@@ -13,47 +14,28 @@ type VisitSeed = {
   opis?: string | null;
 };
 
-const firstNames = [
-  "Anna",
-  "Jan",
-  "Maria",
-  "Piotr",
-  "Agnieszka",
-  "Krzysztof",
-  "Katarzyna",
-  "Tomasz",
-  "Magdalena",
-  "Michal",
-];
-
-const lastNames = [
-  "Nowak",
-  "Kowalski",
-  "Wisniewska",
-  "Wojcik",
-  "Kaminska",
-  "Lewandowski",
-  "Zielinska",
-  "Szymanski",
-  "Dabrowska",
-  "Kozlowski",
-];
-
-const cities = ["Warszawa", "Krakow", "Gdansk", "Wroclaw", "Poznan"];
-
-function dateOnly(value: string) {
-  return new Date(`${value}T00:00:00`);
+function pad(value: number) {
+  return value.toString().padStart(2, "0");
 }
 
-function dateTime(value: string) {
-  return new Date(value);
+function makeDate(
+  year: number,
+  month: number,
+  day: number,
+  hour = 0,
+  minute = 0,
+) {
+  return new Date(
+    `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00`,
+  );
 }
 
-function pick<T>(items: T[], index: number) {
-  return items[index % items.length];
+function pickRandom<T>(items: T[]) {
+  return faker.helpers.arrayElement(items);
 }
 
 async function main() {
+  faker.seed(42);
   await resetData();
 
   await db.insert(schema.specjalizacje).values([
@@ -64,21 +46,18 @@ async function main() {
     { id_specjaliz: 5, nazwa: "Dermatologia" },
   ]);
 
-  await db.insert(schema.przychodnie).values([
-    {
-      nazwa: "Centrum Medyczne Pulk",
-      miasto: "Warszawa",
-      adres: "Aleje Jerozolimskie 21",
-    },
-    { nazwa: "Klinika Nova", miasto: "Krakow", adres: "ul. Grunwaldzka 12" },
-    {
-      nazwa: "Przychodnia Vita",
-      miasto: "Gdansk",
-      adres: "ul. Dlugie Ogrody 7",
-    },
-  ]);
+  const przychodnieSeed = Array.from({ length: 8 }).map(() => ({
+    nazwa: `${faker.company.name()} Medical`,
+    miasto: faker.location.city(),
+    adres: faker.location.streetAddress(),
+  }));
 
-  await db.insert(schema.uslugi).values([
+  const przychodnie = await db
+    .insert(schema.przychodnie)
+    .values(przychodnieSeed)
+    .returning();
+
+  const servicesData = [
     {
       nazwa: "Konsultacja kardiologiczna",
       cena: "320.00",
@@ -93,286 +72,281 @@ async function main() {
       wymaga_skierow: false,
     },
     { nazwa: "Teleporada", cena: "120.00", wymaga_skierow: false },
-  ]);
+    { nazwa: "RTG klatki", cena: "180.00", wymaga_skierow: false },
+    { nazwa: "Badanie EKG", cena: "140.00", wymaga_skierow: false },
+    {
+      nazwa: "Konsultacja neurologiczna",
+      cena: "300.00",
+      wymaga_skierow: true,
+    },
+  ];
 
-  await db.insert(schema.leki).values([
+  const uslugi = await db
+    .insert(schema.uslugi)
+    .values(servicesData)
+    .returning();
+
+  const lekiSeed = [
     { id_leku: 2001, nazwa: "Cardiolin", forma: "tabletki" },
     { id_leku: 2002, nazwa: "Neurocalm", forma: "kapsulki" },
     { id_leku: 2003, nazwa: "Pediatus", forma: "syrop" },
     { id_leku: 2004, nazwa: "Dermasol", forma: "masc" },
     { id_leku: 2005, nazwa: "OrthoFlex", forma: "tabletki" },
     { id_leku: 2006, nazwa: "VitaPlus", forma: "kapsulki" },
-  ]);
+    { id_leku: 2007, nazwa: "Respiron", forma: "syrop" },
+    { id_leku: 2008, nazwa: "CardioSafe", forma: "tabletki" },
+    { id_leku: 2009, nazwa: "Dermacare", forma: "masc" },
+  ];
 
-  await db.insert(schema.lekarze).values([
-    {
-      id_lekarza: 101,
-      imie: "Ewa",
-      nazwisko: "Maj",
-      email: "e.maj@hospital.pl",
-      telefon: "500123456",
-      id_specjaliz: 1,
-    },
-    {
-      id_lekarza: 102,
-      imie: "Pawel",
-      nazwisko: "Lis",
-      email: "p.lis@hospital.pl",
-      telefon: "500123457",
-      id_specjaliz: 2,
-    },
-    {
-      id_lekarza: 103,
-      imie: "Joanna",
-      nazwisko: "Gorska",
-      email: "j.gorska@hospital.pl",
-      telefon: "500123458",
-      id_specjaliz: 3,
-    },
-    {
-      id_lekarza: 104,
-      imie: "Marek",
-      nazwisko: "Zajac",
-      email: "m.zajac@hospital.pl",
-      telefon: "500123459",
-      id_specjaliz: 4,
-    },
-    {
-      id_lekarza: 105,
-      imie: "Natalia",
-      nazwisko: "Krol",
-      email: "n.krol@hospital.pl",
-      telefon: "500123460",
-      id_specjaliz: 5,
-    },
-    {
-      id_lekarza: 106,
-      imie: "Oskar",
-      nazwisko: "Wieczorek",
-      email: "o.wieczorek@hospital.pl",
-      telefon: "500123461",
-      id_specjaliz: 1,
-    },
-  ]);
+  await db.insert(schema.leki).values(lekiSeed);
+
+  await db.insert(schema.lekarze).values(
+    Array.from({ length: 10 }).map((_, index) => {
+      const firstName = faker.person.firstName();
+      const lastName = faker.person.lastName();
+      return {
+        id_lekarza: 101 + index,
+        imie: firstName,
+        nazwisko: lastName,
+        email: faker.internet.email({ firstName, lastName }).toLowerCase(),
+        telefon: `5${faker.number.int({ min: 10000000, max: 99999999 })}`,
+        id_specjaliz: 1 + (index % 5),
+      };
+    }),
+  );
 
   const pacjenci = await db
     .insert(schema.pacjenci)
     .values(
-      Array.from({ length: 12 }).map((_, index) => ({
-        imie: pick(firstNames, index),
-        nazwisko: pick(lastNames, index + 3),
+      Array.from({ length: 40 }).map((_, index) => ({
+        imie: faker.person.firstName(),
+        nazwisko: faker.person.lastName(),
         numer_dokum: `AB${100000 + index}`,
-        data_urodz: dateOnly(
-          `198${index % 10}-0${(index % 9) + 1}-1${index % 9}`,
-        ),
+        data_urodz: faker.date.between({
+          from: new Date("1960-01-01"),
+          to: new Date("2005-12-31"),
+        }),
         plec: index % 2 === 0 ? "K" : "M",
-        email: `${pick(firstNames, index).toLowerCase()}.${pick(lastNames, index).toLowerCase()}@mail.pl`,
-        telefon: `600200${(index + 10).toString().padStart(2, "0")}`,
+        email: faker.internet.email().toLowerCase(),
+        telefon: `6${faker.number.int({ min: 10000000, max: 99999999 })}`,
       })),
     )
     .returning();
 
-  const visitsSeed: VisitSeed[] = [
-    {
-      id_pacjenta: pacjenci[0].id_pacjenta,
-      id_lekarza: 101,
-      data: dateOnly("2025-01-12"),
-      godzina: dateTime("2025-01-12T09:30:00"),
-      typ: "Kontrola",
-      status: "Zakonczona",
-      id_przychodni: 1,
-      opis: "Kontrola po zabiegu",
-    },
-    {
-      id_pacjenta: pacjenci[1].id_pacjenta,
-      id_lekarza: 102,
-      data: dateOnly("2025-01-15"),
-      godzina: dateTime("2025-01-15T11:00:00"),
-      typ: "Konsultacja",
-      status: "Zakonczona",
-      id_przychodni: 2,
-      opis: "Bole glowy",
-    },
-    {
-      id_pacjenta: pacjenci[2].id_pacjenta,
-      id_lekarza: 103,
-      data: dateOnly("2025-02-05"),
-      godzina: dateTime("2025-02-05T14:00:00"),
-      typ: "Szczepienie",
-      status: "Zakonczona",
-      id_przychodni: 3,
-    },
-    {
-      id_pacjenta: pacjenci[3].id_pacjenta,
-      id_lekarza: 104,
-      data: dateOnly("2025-02-20"),
-      godzina: dateTime("2025-02-20T08:45:00"),
-      typ: "Rehabilitacja",
-      status: "Zaplanowana",
-      id_przychodni: 2,
-    },
-    {
-      id_pacjenta: pacjenci[4].id_pacjenta,
-      id_lekarza: 105,
-      data: dateOnly("2025-03-02"),
-      godzina: dateTime("2025-03-02T15:30:00"),
-      typ: "Konsultacja",
-      status: "Zakonczona",
-      id_przychodni: 1,
-      opis: "Zmiany skorne",
-    },
-    {
-      id_pacjenta: pacjenci[5].id_pacjenta,
-      id_lekarza: 106,
-      data: dateOnly("2025-03-12"),
-      godzina: dateTime("2025-03-12T10:15:00"),
-      typ: "Teleporada",
-      status: "Zakonczona",
-      id_przychodni: null,
-    },
+  const visitTypes = [
+    "Kontrola",
+    "Konsultacja",
+    "Szczepienie",
+    "Rehabilitacja",
+    "Teleporada",
+    "Diagnostyka",
   ];
+  const statusOptions = ["Zaplanowana", "W trakcie", "Zakonczona", "Anulowana"];
+
+  const visitsSeed: VisitSeed[] = Array.from({ length: 80 }).map((_, index) => {
+    const patient = pickRandom(pacjenci);
+    const doctorId = 101 + (index % 10);
+    const typ = pickRandom(visitTypes);
+    const status = pickRandom(statusOptions);
+    const clinic = pickRandom(przychodnie);
+    const visitDate = faker.date.between({
+      from: new Date("2025-01-01"),
+      to: new Date("2025-06-30"),
+    });
+    const data = new Date(visitDate);
+    data.setHours(0, 0, 0, 0);
+    const godzina = new Date(visitDate);
+    godzina.setHours(
+      faker.number.int({ min: 8, max: 17 }),
+      pickRandom([0, 15, 30, 45]),
+      0,
+      0,
+    );
+
+    return {
+      id_pacjenta: patient.id_pacjenta,
+      id_lekarza: doctorId,
+      data,
+      godzina,
+      typ,
+      status,
+      id_przychodni: typ === "Teleporada" ? null : clinic.id_przychodni,
+      opis: index % 4 === 0 ? faker.lorem.sentence({ min: 3, max: 6 }) : null,
+    };
+  });
 
   const wizyty = await db.insert(schema.wizyty).values(visitsSeed).returning();
 
-  await db.insert(schema.uslugi_w_wizytach).values([
-    { id_wizyty: wizyty[0].id_wizyty, id_uslugi: 1 },
-    { id_wizyty: wizyty[1].id_wizyty, id_uslugi: 2 },
-    { id_wizyty: wizyty[2].id_wizyty, id_uslugi: 3 },
-    { id_wizyty: wizyty[3].id_wizyty, id_uslugi: 4 },
-    { id_wizyty: wizyty[4].id_wizyty, id_uslugi: 5 },
-    { id_wizyty: wizyty[5].id_wizyty, id_uslugi: 6 },
-  ]);
+  const uslugiWizyty: { id_wizyty: number; id_uslugi: number }[] = [];
+  const teleporady: {
+    id_telepor: number;
+    id_wizyty: number;
+    link: string;
+    godzina_rozpocz: Date;
+    czas_trwania: number;
+  }[] = [];
+  const platnosci: {
+    id_wizyty: number;
+    kwota: string;
+    status: string;
+    data: Date;
+    metoda: string;
+  }[] = [];
 
-  await db.insert(schema.platnosci).values([
-    {
-      id_platnosci: 5001,
-      id_wizyty: wizyty[0].id_wizyty,
-      kwota: "320.00",
-      status: "Zaplacona",
-      data: dateOnly("2025-01-12"),
-      metoda: "Karta",
-    },
-    {
-      id_platnosci: 5002,
-      id_wizyty: wizyty[1].id_wizyty,
-      kwota: "220.00",
-      status: "Zaplacona",
-      data: dateOnly("2025-01-15"),
-      metoda: "Gotowka",
-    },
-    {
-      id_platnosci: 5003,
-      id_wizyty: wizyty[4].id_wizyty,
-      kwota: "240.00",
-      status: "Zaplacona",
-      data: dateOnly("2025-03-02"),
-      metoda: "Przelew",
-    },
-  ]);
+  let teleId = 7000;
+  const paymentStatuses = ["Zaplacona", "Oczekujaca", "Nieoplacona"];
+  const paymentMethods = ["Karta", "Gotowka", "Przelew", "Blik"];
 
-  await db.insert(schema.teleporady).values([
-    {
-      id_telepor: 6001,
-      id_wizyty: wizyty[5].id_wizyty,
-      link: "https://meet.example.com/teleporada-6001",
-      godzina_rozpocz: dateTime("2025-03-12T10:15:00"),
-      czas_trwania: 25,
-    },
-  ]);
+  wizyty.forEach((visit, index) => {
+    const serviceCount = 1 + (index % 2);
+    const used = new Set<number>();
+    for (let i = 0; i < serviceCount; i += 1) {
+      const service = pickRandom(uslugi);
+      if (used.has(service.id_uslugi)) continue;
+      used.add(service.id_uslugi);
+      uslugiWizyty.push({
+        id_wizyty: visit.id_wizyty,
+        id_uslugi: service.id_uslugi,
+      });
+    }
+
+    if (visit.typ === "Teleporada") {
+      teleId += 1;
+      teleporady.push({
+        id_telepor: teleId,
+        id_wizyty: visit.id_wizyty,
+        link: `https://meet.example.com/teleporada-${teleId}`,
+        godzina_rozpocz: visit.godzina,
+        czas_trwania: 15 + (index % 3) * 10,
+      });
+    }
+
+    if (visit.status === "Zakonczona") {
+      const sum = Array.from(used).reduce((acc, serviceId) => {
+        const found = uslugi.find((item) => item.id_uslugi === serviceId);
+        const value = Number(found?.cena ?? 0);
+        return acc + (Number.isNaN(value) ? 0 : value);
+      }, 0);
+
+      platnosci.push({
+        id_wizyty: visit.id_wizyty,
+        kwota: sum.toFixed(2),
+        status: pickRandom(paymentStatuses),
+        data: visit.data,
+        metoda: pickRandom(paymentMethods),
+      });
+    }
+  });
+
+  if (uslugiWizyty.length > 0) {
+    await db.insert(schema.uslugi_w_wizytach).values(uslugiWizyty);
+  }
+
+  if (platnosci.length > 0) {
+    await db.insert(schema.platnosci).values(platnosci);
+  }
+
+  if (teleporady.length > 0) {
+    await db.insert(schema.teleporady).values(teleporady);
+  }
+
+  const receptySeed = Array.from({ length: 35 }).map((_, index) => ({
+    data: faker.date.between({
+      from: new Date("2025-01-01"),
+      to: new Date("2025-06-30"),
+    }),
+    id_pacjenta: pickRandom(pacjenci).id_pacjenta,
+    id_lekarza: 101 + (index % 10),
+  }));
 
   const recepty = await db
     .insert(schema.recepty)
-    .values([
-      {
-        data: dateOnly("2025-01-12"),
-        id_pacjenta: pacjenci[0].id_pacjenta,
-        id_lekarza: 101,
-      },
-      {
-        data: dateOnly("2025-03-02"),
-        id_pacjenta: pacjenci[4].id_pacjenta,
-        id_lekarza: 105,
-      },
-    ])
+    .values(receptySeed)
     .returning();
 
-  await db.insert(schema.pozycje_recept).values([
-    {
-      id_recepty: recepty[0].id_recepty,
-      Lp: 1,
-      id_leku: 2001,
-      ilosc: 2,
-      dawkowanie: "1 tabletka dziennie",
-      odplatnosc: "30%",
-    },
-    {
-      id_recepty: recepty[0].id_recepty,
-      Lp: 2,
-      id_leku: 2006,
-      ilosc: 1,
-      dawkowanie: "1 kapsulka wieczorem",
-      odplatnosc: "50%",
-    },
-    {
-      id_recepty: recepty[1].id_recepty,
-      Lp: 1,
-      id_leku: 2004,
-      ilosc: 1,
-      dawkowanie: "2 razy dziennie",
-      odplatnosc: "100%",
-    },
-  ]);
+  const dawkowanieList = [
+    "1 tabletka dziennie",
+    "2 razy dziennie",
+    "1 kapsulka wieczorem",
+    "Rano i wieczorem",
+  ];
+  const odplatnoscList = ["30%", "50%", "100%", "bezplatnie"];
+
+  const pozycjeRecept: {
+    id_recepty: number;
+    Lp: number;
+    id_leku: number;
+    ilosc: number;
+    dawkowanie: string;
+    odplatnosc: string;
+  }[] = [];
+
+  recepty.forEach((recepta) => {
+    const itemsCount = 1 + (recepta.id_recepty % 3);
+    for (let i = 0; i < itemsCount; i += 1) {
+      const lek = pickRandom(lekiSeed);
+      pozycjeRecept.push({
+        id_recepty: recepta.id_recepty,
+        Lp: i + 1,
+        id_leku: lek.id_leku,
+        ilosc: 1 + (i % 3),
+        dawkowanie: pickRandom(dawkowanieList),
+        odplatnosc: pickRandom(odplatnoscList),
+      });
+    }
+  });
+
+  await db.insert(schema.pozycje_recept).values(pozycjeRecept);
 
   const historie = await db
     .insert(schema.historie_leczenia)
-    .values([
-      { id_pacjenta: pacjenci[0].id_pacjenta },
-      { id_pacjenta: pacjenci[1].id_pacjenta },
-      { id_pacjenta: pacjenci[4].id_pacjenta },
-    ])
+    .values(
+      pacjenci
+        .slice(0, 12)
+        .map((patient) => ({ id_pacjenta: patient.id_pacjenta })),
+    )
     .returning();
 
-  await db.insert(schema.pozycje_historii_leczenia).values([
-    {
-      id_historii: historie[0].id_historii,
-      Lp: 1,
-      id_wizyty: wizyty[0].id_wizyty,
-    },
-    {
-      id_historii: historie[0].id_historii,
-      Lp: 2,
-      id_wizyty: wizyty[1].id_wizyty,
-    },
-    {
-      id_historii: historie[1].id_historii,
-      Lp: 1,
-      id_wizyty: wizyty[1].id_wizyty,
-    },
-    {
-      id_historii: historie[2].id_historii,
-      Lp: 1,
-      id_wizyty: wizyty[4].id_wizyty,
-    },
-  ]);
+  const pozycjeHistorii: {
+    id_historii: number;
+    Lp: number;
+    id_wizyty: number;
+  }[] = [];
 
-  await db.insert(schema.skierowania).values([
-    {
-      numer: 7001,
-      id_pacjenta: pacjenci[3].id_pacjenta,
-      id_lekarza: 104,
-      data_wystaw: dateOnly("2025-02-20"),
-      opis: "Rehabilitacja kolana",
-      id_uslugi: 4,
-    },
-    {
-      numer: 7002,
-      id_pacjenta: pacjenci[1].id_pacjenta,
-      id_lekarza: 102,
-      data_wystaw: dateOnly("2025-01-15"),
-      opis: "Dodatkowa diagnostyka neurologiczna",
-      id_uslugi: 2,
-    },
-  ]);
+  historie.forEach((history, index) => {
+    const itemsCount = 1 + (index % 3);
+    for (let i = 0; i < itemsCount; i += 1) {
+      const visit = pickRandom(wizyty);
+      pozycjeHistorii.push({
+        id_historii: history.id_historii,
+        Lp: i + 1,
+        id_wizyty: visit.id_wizyty,
+      });
+    }
+  });
+
+  await db.insert(schema.pozycje_historii_leczenia).values(pozycjeHistorii);
+
+  const referralServices = uslugi.filter((item) => item.wymaga_skierow);
+  const skierowaniaSeed = Array.from({ length: 30 }).map((_, index) => {
+    const service =
+      referralServices.length > 0
+        ? pickRandom(referralServices)
+        : pickRandom(uslugi);
+    return {
+      numer: 7000 + index + 1,
+      id_pacjenta: pickRandom(pacjenci).id_pacjenta,
+      id_lekarza: 101 + (index % 10),
+      data_wystaw: faker.date.between({
+        from: new Date("2025-01-01"),
+        to: new Date("2025-06-30"),
+      }),
+      opis: faker.lorem.sentence({ min: 4, max: 8 }),
+      id_uslugi: service.id_uslugi,
+    };
+  });
+
+  await db.insert(schema.skierowania).values(skierowaniaSeed);
 
   console.log("Seed complete");
 }

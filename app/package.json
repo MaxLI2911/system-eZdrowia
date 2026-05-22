@@ -9,6 +9,7 @@
     "seed": "tsx src/lib/db/seed.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "dotenv": "^16.0.0",
     "drizzle-orm": "^0.45.2",
     "drizzle-seed": "^0.3.1",

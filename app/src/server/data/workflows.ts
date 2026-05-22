@@ -216,6 +216,44 @@ export async function listUpcomingVisits(rangeDays = 7) {
     .limit(60);
 }
 
+export async function listCalendarVisits({
+  pastDays = 0,
+  futureDays = 14,
+  pastAll = false,
+}: {
+  pastDays?: number;
+  futureDays?: number;
+  pastAll?: boolean;
+}) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const startDate = pastAll ? new Date("1970-01-01") : new Date(today);
+  if (!pastAll) {
+    startDate.setDate(startDate.getDate() - Math.max(pastDays, 0));
+  }
+  const endDate = new Date(today);
+  endDate.setDate(endDate.getDate() + Math.max(futureDays, 0));
+
+  return db
+    .select({
+      id: wizyty.id_wizyty,
+      data: wizyty.data,
+      godzina: wizyty.godzina,
+      typ: wizyty.typ,
+      status: wizyty.status,
+      pacjentImie: pacjenci.imie,
+      pacjentNazwisko: pacjenci.nazwisko,
+      lekarzImie: lekarze.imie,
+      lekarzNazwisko: lekarze.nazwisko,
+    })
+    .from(wizyty)
+    .leftJoin(pacjenci, eq(wizyty.id_pacjenta, pacjenci.id_pacjenta))
+    .leftJoin(lekarze, eq(wizyty.id_lekarza, lekarze.id_lekarza))
+    .where(andDateRange(startDate, endDate))
+    .orderBy(asc(wizyty.data), asc(wizyty.godzina))
+    .limit(120);
+}
+
 export async function listVisits(search?: string) {
   const clauses = search
     ? or(
@@ -238,6 +276,7 @@ export async function listVisits(search?: string) {
       pacjentId: pacjenci.id_pacjenta,
       pacjentImie: pacjenci.imie,
       pacjentNazwisko: pacjenci.nazwisko,
+      lekarzId: lekarze.id_lekarza,
       lekarzImie: lekarze.imie,
       lekarzNazwisko: lekarze.nazwisko,
       przychodnia: przychodnie.nazwa,
@@ -266,6 +305,7 @@ export async function getVisitDetails(visitId: number) {
       pacjentId: pacjenci.id_pacjenta,
       pacjentImie: pacjenci.imie,
       pacjentNazwisko: pacjenci.nazwisko,
+      lekarzId: lekarze.id_lekarza,
       lekarzImie: lekarze.imie,
       lekarzNazwisko: lekarze.nazwisko,
       przychodnia: przychodnie.nazwa,

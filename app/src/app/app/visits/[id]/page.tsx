@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BackButton } from "@/app/_components/BackButton";
-import { formatDate, formatDateTime, formatCurrency } from "@/lib/format";
+import { formatDate, formatDateTime } from "@/lib/format";
 import { getVisitDetails } from "@/server/data/workflows";
 import { VisitExecutionForm } from "@/app/app/_components/VisitExecutionForm";
 
@@ -42,7 +42,9 @@ export default async function VisitDetailsPage({
         <div className="profile-card">
           <h3>Opiekun</h3>
           <p>
-            {visit.lekarzImie} {visit.lekarzNazwisko}
+            <Link href={`/app/doctors/${visit.lekarzId}`}>
+              {visit.lekarzImie} {visit.lekarzNazwisko}
+            </Link>
           </p>
           <p>Typ: {visit.typ}</p>
           <p>Status: {visit.status}</p>
@@ -59,37 +61,6 @@ export default async function VisitDetailsPage({
         existingServices={services}
         existingPayments={payments}
       />
-
-      <section className="section-card">
-        <div className="section-header">
-          <h2>Platnosci</h2>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Data</th>
-              <th>Kwota</th>
-              <th>Status</th>
-              <th>Metoda</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payments.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{formatDate(item.data)}</td>
-                <td>{formatCurrency(item.kwota)}</td>
-                <td>{item.status ?? "-"}</td>
-                <td>{item.metoda ?? "-"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {payments.length === 0 && (
-          <p className="empty">Brak platnosci dla tej wizyty.</p>
-        )}
-      </section>
     </main>
   );
 }

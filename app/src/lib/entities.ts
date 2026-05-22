@@ -276,7 +276,7 @@ export const ENTITY_CONFIGS = {
     ],
     searchFields: ["status", "metoda"],
     fields: [
-      { name: "id_platnosci", label: "ID", type: "number", required: true },
+      { name: "id_platnosci", label: "ID", type: "number", readOnly: true },
       {
         name: "id_wizyty",
         label: "Wizyta",

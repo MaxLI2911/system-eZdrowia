@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { formatCurrency, formatDate } from "@/lib/format";
 
 type ServiceOption = { value: string; label: string; raw?: { cena?: string } };
 
@@ -17,18 +18,32 @@ type Props = {
     nazwa: string;
     cena?: string | number | null;
   }[];
-  existingPayments: { id: number; kwota: string | number | null }[];
+  existingPayments: {
+    id: number;
+    kwota: string | number | null;
+    status?: string | null;
+    metoda?: string | null;
+    data?: Date | string | null;
+  }[];
 };
 
 const STATUS_OPTIONS = ["Zaplanowana", "W trakcie", "Zakonczona", "Anulowana"];
 const PAYMENT_STATUS = ["Oczekujaca", "Zaplacona", "Nieoplacona"];
 const PAYMENT_METHODS = ["Karta", "Gotowka", "Przelew", "Blik"];
 
-export function VisitExecutionForm({ visit, existingServices }: Props) {
+export function VisitExecutionForm({
+  visit,
+  existingServices,
+  existingPayments,
+}: Props) {
   const router = useRouter();
   const [serviceOptions, setServiceOptions] = useState<ServiceOption[]>([]);
   const [status, setStatus] = useState(visit.status ?? "Zaplanowana");
   const [serviceId, setServiceId] = useState("");
+  const [paymentStatusEdits, setPaymentStatusEdits] = useState<
+    Record<number, string>
+  >({});
+  const [savingPaymentId, setSavingPaymentId] = useState<number | null>(null);
   const [payment, setPayment] = useState({
     kwota: "",
     status: "Oczekujaca",
@@ -150,7 +165,6 @@ export function VisitExecutionForm({ visit, existingServices }: Props) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id_platnosci: Date.now(),
           id_wizyty: `id_wizyty:${visit.id}`,
           kwota: payment.kwota,
           status: payment.status,
@@ -171,6 +185,61 @@ export function VisitExecutionForm({ visit, existingServices }: Props) {
       setError("Nie udalo sie zapisac platnosci.");
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function updatePaymentStatus(paymentId: number) {
+    const nextStatus =
+      paymentStatusEdits[paymentId] ??
+      existingPayments.find((item) => item.id === paymentId)?.status;
+
+    if (!nextStatus) return;
+
+    setSavingPaymentId(paymentId);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/platnosci/id_platnosci:${paymentId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: nextStatus }),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json();
+        setError(payload?.error ?? "Nie udalo sie zapisac platnosci.");
+        return;
+      }
+
+      router.refresh();
+    } catch (err) {
+      setError("Nie udalo sie zapisac platnosci.");
+    } finally {
+      setSavingPaymentId(null);
+    }
+  }
+
+  async function deletePayment(paymentId: number) {
+    if (!confirm("Czy na pewno usunac platnosc?")) return;
+
+    setSavingPaymentId(paymentId);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/platnosci/id_platnosci:${paymentId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        setError("Nie udalo sie usunac platnosci.");
+        return;
+      }
+
+      router.refresh();
+    } catch (err) {
+      setError("Nie udalo sie usunac platnosci.");
+    } finally {
+      setSavingPaymentId(null);
     }
   }
 
@@ -307,6 +376,77 @@ export function VisitExecutionForm({ visit, existingServices }: Props) {
       </div>
 
       {error && <p className="form-error">{error}</p>}
+
+      <section className="section-card" style={{ marginTop: 24 }}>
+        <div className="section-header">
+          <h3>Platnosci</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Data</th>
+              <th>Kwota</th>
+              <th>Status</th>
+              <th>Metoda</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {existingPayments.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{formatDate(item.data)}</td>
+                <td>{formatCurrency(item.kwota)}</td>
+                <td>
+                  <select
+                    value={
+                      paymentStatusEdits[item.id] ??
+                      item.status ??
+                      PAYMENT_STATUS[0]
+                    }
+                    onChange={(event) =>
+                      setPaymentStatusEdits((prev) => ({
+                        ...prev,
+                        [item.id]: event.target.value,
+                      }))
+                    }
+                    disabled={savingPaymentId === item.id}
+                  >
+                    {PAYMENT_STATUS.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>{item.metoda ?? "-"}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="ghost"
+                    onClick={() => updatePaymentStatus(item.id)}
+                    disabled={savingPaymentId === item.id}
+                  >
+                    Zapisz
+                  </button>
+                  <button
+                    type="button"
+                    className="ghost"
+                    onClick={() => deletePayment(item.id)}
+                    disabled={savingPaymentId === item.id}
+                  >
+                    Usun
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {existingPayments.length === 0 && (
+          <p className="empty">Brak platnosci dla tej wizyty.</p>
+        )}
+      </section>
     </div>
   );
 }

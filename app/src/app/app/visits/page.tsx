@@ -56,7 +56,9 @@ export default async function VisitsPage({
                   </Link>
                 </td>
                 <td>
-                  {visit.lekarzImie} {visit.lekarzNazwisko}
+                  <Link href={`/app/doctors/${visit.lekarzId}`}>
+                    {visit.lekarzImie} {visit.lekarzNazwisko}
+                  </Link>
                 </td>
                 <td>
                   {formatDate(visit.data)} {formatDateTime(visit.godzina)}

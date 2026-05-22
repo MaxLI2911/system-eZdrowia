@@ -32,7 +32,7 @@ export const lekarze = pgTable("lekarze", {
 });
 
 export const platnosci = pgTable("platnosci", {
-  id_platnosci: integer("id_platnosci").primaryKey(),
+  id_platnosci: serial("id_platnosci").primaryKey(),
   id_wizyty: integer("id_wizyty").notNull(),
   kwota: numeric("kwota", { precision: 12, scale: 2 }).notNull(),
   status: varchar("status", { length: 20 }),
