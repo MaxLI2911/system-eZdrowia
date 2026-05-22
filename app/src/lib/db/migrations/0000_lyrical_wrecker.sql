@@ -30,7 +30,7 @@ CREATE TABLE "pacjenci" (
 );
 --> statement-breakpoint
 CREATE TABLE "platnosci" (
-	"id_platnosci" integer PRIMARY KEY NOT NULL,
+	"id_platnosci" serial PRIMARY KEY NOT NULL,
 	"id_wizyty" integer NOT NULL,
 	"kwota" numeric(12, 2) NOT NULL,
 	"status" varchar(20),

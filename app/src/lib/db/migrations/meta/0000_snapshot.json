@@ -1,5 +1,5 @@
 {
-  "id": "0cdde8f8-61e8-4a4f-939d-f10044fe8f2d",
+  "id": "a8b108ea-fab3-4da2-a111-45bb0968e7f6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -176,7 +176,7 @@
       "columns": {
         "id_platnosci": {
           "name": "id_platnosci",
-          "type": "integer",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
