@@ -54,8 +54,8 @@ export async function getDashboardData() {
 
   return {
     stats: {
-      patients: patientsCount?.count ?? 0,
-      visitsWeek: visitsCount?.count ?? 0,
+      patients: Number(patientsCount?.count ?? 0),
+      visitsWeek: Number(visitsCount?.count ?? 0),
     },
     upcomingVisits,
   };
