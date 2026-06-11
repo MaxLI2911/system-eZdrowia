@@ -1,3 +1,4 @@
+-- Custom SQL migration file, put your code below! --
 -- optymalizacja (indeksy i partycjonowanie)
 CREATE INDEX IF NOT EXISTS idx_pacjenci_nazwisko ON pacjenci(nazwisko);
 CREATE INDEX IF NOT EXISTS idx_wizyty_data ON wizyty(data);
@@ -39,6 +40,31 @@ $$;
 CREATE OR REPLACE PROCEDURE zrealizuj_wizyte(p_id_wizyty INT, p_opis VARCHAR) LANGUAGE plpgsql AS $$
 BEGIN
     UPDATE wizyty SET status = 'Zakonczona', opis = p_opis WHERE id_wizyty = p_id_wizyty;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE anuluj_wizyte(p_id_wizyty INT) LANGUAGE plpgsql AS $$
+BEGIN
+    UPDATE wizyty SET status = 'Anulowana' WHERE id_wizyty = p_id_wizyty;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE wystaw_skierowanie(
+    p_numer INT, p_id_pacjenta INT, p_id_lekarza INT, p_data_wystaw TIMESTAMP, p_opis VARCHAR, p_id_uslugi INT
+) LANGUAGE plpgsql AS $$
+BEGIN
+    INSERT INTO skierowania (numer, id_pacjenta, id_lekarza, data_wystaw, opis, id_uslugi)
+    VALUES (p_numer, p_id_pacjenta, p_id_lekarza, p_data_wystaw, p_opis, p_id_uslugi);
+END;
+$$;
+
+
+CREATE OR REPLACE PROCEDURE wystaw_recepte(
+    p_data TIMESTAMP, p_id_pacjenta INT, p_id_lekarza INT
+) LANGUAGE plpgsql AS $$
+BEGIN
+    INSERT INTO recepty (data, id_pacjenta, id_lekarza)
+    VALUES (p_data, p_id_pacjenta, p_id_lekarza);
 END;
 $$;
 
