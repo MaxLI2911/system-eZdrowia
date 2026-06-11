@@ -225,16 +225,14 @@ describe("T-DB-03: Spójność transakcji recepty i pozycji", () => {
 
 describe("T-DB-01: Blokada blednych dat", () => {
   it("rejects insert of a visit with a past date", async () => {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    yesterday.setHours(10, 0, 0, 0);
+    const pastDate = new Date("2020-01-01T10:00:00");
 
     await expect(
       db.insert(wizyty).values({
         id_pacjenta: patientId,
         id_lekarza: doctorId,
-        data: yesterday,
-        godzina: yesterday,
+        data: pastDate,
+        godzina: pastDate,
         typ: "Konsultacja",
         status: "Zaplanowana",
         id_przychodni: clinicId,

@@ -28,6 +28,7 @@ export function EntityForm({ entity, mode, initialData, recordId }: Props) {
   );
   const [options, setOptions] = useState<OptionsMap>({});
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
 
   const selectFields = useMemo(
@@ -60,9 +61,32 @@ export function EntityForm({ entity, mode, initialData, recordId }: Props) {
     };
   }, [selectFields]);
 
+  function validateFields(): Record<string, string> {
+    const errors: Record<string, string> = {};
+
+    for (const field of config.fields) {
+      if (field.name === "telefon") {
+        const val = String(values[field.name] ?? "");
+        if (val.length > 0 && !/^\d+$/.test(val)) {
+          errors[field.name] = "Dozwolone sa tylko cyfry";
+        }
+      }
+    }
+
+    return errors;
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+
+    const errors = validateFields();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+    setFieldErrors({});
+
     setIsSaving(true);
 
     try {
@@ -121,10 +145,17 @@ export function EntityForm({ entity, mode, initialData, recordId }: Props) {
             key={field.name}
             field={field}
             value={values[field.name]}
-            onChange={(next) =>
-              setValues((prev) => ({ ...prev, [field.name]: next }))
-            }
+            onChange={(next) => {
+              setValues((prev) => ({ ...prev, [field.name]: next }));
+              setFieldErrors((prev) => {
+                if (!prev[field.name]) return prev;
+                const copy = { ...prev };
+                delete copy[field.name];
+                return copy;
+              });
+            }}
             options={options[field.name] ?? []}
+            fieldError={fieldErrors[field.name]}
             disabled={
               isSaving ||
               field.readOnly ||
@@ -161,12 +192,14 @@ function Field({
   onChange,
   options,
   disabled,
+  fieldError,
 }: {
   field: FieldConfig;
   value: unknown;
   onChange: (value: unknown) => void;
   options: Option[];
   disabled?: boolean;
+  fieldError?: string;
 }) {
   const commonProps = {
     name: field.name,
@@ -183,6 +216,7 @@ function Field({
           onChange={(event) => onChange(event.target.value)}
           required={field.required}
         />
+        {fieldError && <span className="field-error">{fieldError}</span>}
       </label>
     );
   }
@@ -201,6 +235,7 @@ function Field({
           <option value="true">Tak</option>
           <option value="false">Nie</option>
         </select>
+        {fieldError && <span className="field-error">{fieldError}</span>}
       </label>
     );
   }
@@ -222,6 +257,7 @@ function Field({
             </option>
           ))}
         </select>
+        {fieldError && <span className="field-error">{fieldError}</span>}
       </label>
     );
   }
@@ -247,6 +283,7 @@ function Field({
         required={field.required}
         step={field.type === "currency" ? "0.01" : undefined}
       />
+      {fieldError && <span className="field-error">{fieldError}</span>}
     </label>
   );
 }
