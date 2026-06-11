@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { faker } from "@faker-js/faker";
+import { sql } from "drizzle-orm";
 import { db } from ".";
 import * as schema from "./schema";
 
@@ -175,7 +176,14 @@ async function main() {
     };
   });
 
+  // the seed data uses dates in the past, disable the trigger that would otherwise reject the data
+  await db.execute(
+    sql`ALTER TABLE wizyty DISABLE TRIGGER trg_check_future_visit_date`,
+  );
   const wizyty = await db.insert(schema.wizyty).values(visitsSeed).returning();
+  await db.execute(
+    sql`ALTER TABLE wizyty ENABLE TRIGGER trg_check_future_visit_date`,
+  );
 
   const uslugiWizyty: { id_wizyty: number; id_uslugi: number }[] = [];
   const teleporady: {
@@ -243,7 +251,9 @@ async function main() {
   }
 
   if (platnosci.length > 0) {
-    await db.insert(schema.platnosci).values(platnosci);
+    for (const p of platnosci) {
+      await db.insert(schema.platnosci).values(p);
+    }
   }
 
   if (teleporady.length > 0) {
