@@ -177,6 +177,70 @@ export async function createRecord(
 ) {
   const table = getTable(entity);
   const values = coercePayload(entity, payload, { omitReadOnly: true });
+
+  try {
+    if (entity === "pacjenci") {
+      await db.execute(sql`
+        CALL dodaj_pacjenta(
+          ${String(values.imie || "")}::varchar,
+          ${String(values.nazwisko || "")}::varchar,
+          ${String(values.numer_dokum || "")}::varchar,
+          ${values.data_urodz ? new Date(String(values.data_urodz)).toISOString() : new Date().toISOString()}::timestamp,
+          ${String(values.plec || "")}::varchar,
+          ${values.email ? String(values.email) : null}::varchar,
+          ${values.telefon ? String(values.telefon) : null}::varchar
+        )
+      `);
+      const rows = await db.select().from(table as never).orderBy(sql`id_pacjenta DESC`).limit(1);
+      return rows[0] ?? null;
+    }
+
+    if (entity === "wizyty") {
+      await db.execute(sql`
+        CALL umow_wizyte(
+          ${Number(values.id_pacjenta)}::int,
+          ${Number(values.id_lekarza)}::int,
+          ${values.data ? new Date(String(values.data)).toISOString() : new Date().toISOString()}::timestamp,
+          ${values.godzina ? new Date(String(values.godzina)).toISOString() : new Date().toISOString()}::timestamp,
+          ${String(values.typ || "")}::varchar,
+          ${values.id_przychodni ? Number(values.id_przychodni) : null}::int
+        )
+      `);
+      const rows = await db.select().from(table as never).orderBy(sql`id_wizyty DESC`).limit(1);
+      return rows[0] ?? null;
+    }
+
+    if (entity === "skierowania") {
+      await db.execute(sql`
+        CALL wystaw_skierowanie(
+          ${Number(values.numer)}::int,
+          ${Number(values.id_pacjenta)}::int,
+          ${Number(values.id_lekarza)}::int,
+          ${values.data_wystaw ? new Date(String(values.data_wystaw)).toISOString() : new Date().toISOString()}::timestamp,
+          ${String(values.opis || "")}::varchar,
+          ${Number(values.id_uslugi)}::int
+        )
+      `);
+      const rows = await db.select().from(table as never).orderBy(sql`numer DESC`).limit(1);
+      return rows[0] ?? null;
+    }
+
+    if (entity === "recepty") {
+      await db.execute(sql`
+        CALL wystaw_recepte(
+          ${values.data ? new Date(String(values.data)).toISOString() : new Date().toISOString()}::timestamp,
+          ${Number(values.id_pacjenta)}::int,
+          ${Number(values.id_lekarza)}::int
+        )
+      `);
+      const rows = await db.select().from(table as never).orderBy(sql`id_recepty DESC`).limit(1);
+      return rows[0] ?? null;
+    }
+  } catch (error) {
+    console.error("Database error:", error);
+    throw error;
+  }
+
   const rows = await db
     .insert(table as never)
     .values(values as never)
@@ -196,6 +260,27 @@ export async function updateRecord(
     omitReadOnly: false,
     omitPrimaryKeys: true,
   });
+
+  try {
+    if (entity === "wizyty") {
+      const idWizyty = Number(keyValues["id_wizyty"]);
+      
+      if (values.status === "Anulowana") {
+        await db.execute(sql`CALL anuluj_wizyte(${idWizyty}::int)`);
+        const rows = await db.select().from(table as never).where(whereClause as never).limit(1);
+        return rows[0] ?? null;
+      } 
+      else if (values.status === "Zakonczona") {
+        await db.execute(sql`CALL zrealizuj_wizyte(${idWizyty}::int, ${String(values.opis || "")}::varchar)`);
+        const rows = await db.select().from(table as never).where(whereClause as never).limit(1);
+        return rows[0] ?? null;
+      }
+    }
+  } catch (error) {
+    console.error("Database error:", error);
+    throw error;
+  }
+
   const rows = await db
     .update(table as never)
     .set(values as never)
