@@ -15,6 +15,13 @@
       "when": 1779441623270,
       "tag": "0001_proc_and_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779500000000,
+      "tag": "0002_future_date_trigger",
+      "breakpoints": true
     }
   ]
 }

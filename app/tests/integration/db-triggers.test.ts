@@ -222,3 +222,46 @@ describe("T-DB-03: Spójność transakcji recepty i pozycji", () => {
     expect(items.length).toBe(0);
   });
 });
+
+describe("T-DB-01: Blokada blednych dat", () => {
+  it("rejects insert of a visit with a past date", async () => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(10, 0, 0, 0);
+
+    await expect(
+      db.insert(wizyty).values({
+        id_pacjenta: patientId,
+        id_lekarza: doctorId,
+        data: yesterday,
+        godzina: yesterday,
+        typ: "Konsultacja",
+        status: "Zaplanowana",
+        id_przychodni: clinicId,
+      }),
+    ).rejects.toThrow();
+  });
+
+  it("allows insert of a visit with a future date", async () => {
+    const future = new Date();
+    future.setDate(future.getDate() + 10);
+    future.setHours(12, 0, 0, 0);
+
+    const [vis] = await db
+      .insert(wizyty)
+      .values({
+        id_pacjenta: patientId,
+        id_lekarza: doctorId,
+        data: future,
+        godzina: future,
+        typ: "Kontrolna",
+        status: "Zaplanowana",
+        id_przychodni: clinicId,
+      })
+      .returning();
+
+    expect(vis.id_wizyty).toBeDefined();
+
+    await db.delete(wizyty).where(eq(wizyty.id_wizyty, vis.id_wizyty));
+  });
+});
