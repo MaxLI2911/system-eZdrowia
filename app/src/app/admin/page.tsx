@@ -6,7 +6,7 @@ export default function AdminHomePage() {
     <main className="page">
       <section className="hero">
         <div>
-          <p className="eyebrow">Hospital Admin Console</p>
+          <p className="eyebrow">Hospital Dashboard</p>
           <h1>Panel zarzadzania danymi szpitala</h1>
           <p className="subtle">
             Wybierz modul danych, aby przegladac rekordy, edytowac je lub

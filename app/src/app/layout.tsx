@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <aside className="sidebar">
             <div className="brand">
               <span>Hospital</span>
-              <h2>Admin Console</h2>
+              <h2>Management System</h2>
             </div>
             <SidebarNav />
           </aside>
