@@ -168,10 +168,22 @@ describe("createRecord", () => {
     }
   });
 
-  it("throws on missing required fields", async () => {
-    await expect(
-      createRecord("pacjenci", { imie: "Bez" }),
-    ).rejects.toThrow();
+  it("fills missing fields with defaults via stored procedure", async () => {
+    let createdId: number | undefined;
+    try {
+      const result = await createRecord("pacjenci", { imie: "Bez" });
+
+      expect(result).not.toBeNull();
+      const r = result as Record<string, unknown>;
+      expect(r.imie).toBe("Bez");
+      createdId = r.id_pacjenta as number;
+    } finally {
+      if (createdId) {
+        await db
+          .delete(pacjenci)
+          .where(eq(pacjenci.id_pacjenta, createdId));
+      }
+    }
   });
 });
 
