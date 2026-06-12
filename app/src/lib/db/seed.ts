@@ -36,6 +36,7 @@ function pickRandom<T>(items: T[]) {
 }
 
 async function main() {
+  await db.execute(sql`SET session_replication_role = 'replica';`);
   faker.seed(42);
   await resetData();
 
@@ -177,13 +178,13 @@ async function main() {
   });
 
   // the seed data uses dates in the past, disable the trigger that would otherwise reject the data
-  await db.execute(
-    sql`ALTER TABLE wizyty DISABLE TRIGGER trg_check_future_visit_date`,
-  );
+  //await db.execute(
+    //sql`ALTER TABLE wizyty DISABLE TRIGGER trg_check_future_visit_date`,
+  //);
   const wizyty = await db.insert(schema.wizyty).values(visitsSeed).returning();
-  await db.execute(
-    sql`ALTER TABLE wizyty ENABLE TRIGGER trg_check_future_visit_date`,
-  );
+  //await db.execute(
+    //sql`ALTER TABLE wizyty ENABLE TRIGGER trg_check_future_visit_date`,
+  //);
 
   const uslugiWizyty: { id_wizyty: number; id_uslugi: number }[] = [];
   const teleporady: {
@@ -359,6 +360,7 @@ async function main() {
   await db.insert(schema.skierowania).values(skierowaniaSeed);
 
   console.log("Seed complete");
+  await db.execute(sql`SET session_replication_role = 'origin';`);
 }
 
 async function resetData() {

@@ -37,15 +37,36 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE PROCEDURE zrealizuj_wizyte(p_id_wizyty INT, p_opis VARCHAR) LANGUAGE plpgsql AS $$
+CREATE OR REPLACE PROCEDURE zrealizuj_wizyte(p_id_wizyty INT, p_opis_lekarski VARCHAR) LANGUAGE plpgsql AS $$
+DECLARE
+    v_id_pacjenta INT;
+    v_id_historii INT;
 BEGIN
-    UPDATE wizyty SET status = 'Zakonczona', opis = p_opis WHERE id_wizyty = p_id_wizyty;
+    UPDATE wizyty SET status = 'Zakonczona', opis = p_opis_lekarski WHERE id_wizyty = p_id_wizyty;
+    
+    SELECT id_pacjenta INTO v_id_pacjenta FROM wizyty WHERE id_wizyty = p_id_wizyty;
+    
+    SELECT id_historii INTO v_id_historii FROM historie_leczenia WHERE id_pacjenta = v_id_pacjenta LIMIT 1;
+    
+    IF v_id_historii IS NULL THEN
+        INSERT INTO historie_leczenia (id_pacjenta) VALUES (v_id_pacjenta) RETURNING id_historii INTO v_id_historii;
+    END IF;
+    
+    -- Automatyczny wpis do pozycji historii leczenia
+    INSERT INTO pozycje_historii_leczenia (id_historii, id_wizyty, opis, data_wpisu)
+    VALUES (v_id_historii, p_id_wizyty, p_opis_lekarski, CURRENT_TIMESTAMP);
 END;
 $$;
 
 CREATE OR REPLACE PROCEDURE anuluj_wizyte(p_id_wizyty INT) LANGUAGE plpgsql AS $$
 BEGIN
+    -- Zmiana statusu wizyty (zwalnia termin w check_double_booking)
     UPDATE wizyty SET status = 'Anulowana' WHERE id_wizyty = p_id_wizyty;
+    
+    -- Inicjowanie korekty płatności (Spójność finansowa)
+    UPDATE platnosci SET status = 'Zwrot' WHERE id_wizyty = p_id_wizyty AND status != 'Zaplacona';
+    -- Jeśli płatność była zapłacona, można zmienić na status 'DoZwrotu' lub wygenerować korektę
+    UPDATE platnosci SET status = 'DoZwrotu' WHERE id_wizyty = p_id_wizyty AND status = 'Zaplacona';
 END;
 $$;
 
@@ -101,3 +122,39 @@ $$ LANGUAGE plpgsql;
 
 DROP TRIGGER IF EXISTS trg_prevent_paid_deletion ON platnosci;
 CREATE TRIGGER trg_prevent_paid_deletion BEFORE DELETE ON platnosci FOR EACH ROW EXECUTE FUNCTION prevent_paid_deletion();
+
+CREATE OR REPLACE FUNCTION auto_generate_payment() RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO platnosci (id_wizyty, kwota, status, data, metoda)
+    VALUES (NEW.id_wizyty, 100.00, 'Oczekujaca', CURRENT_DATE, 'Gotowka');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_auto_generate_payment ON wizyty;
+CREATE TRIGGER trg_auto_generate_payment
+AFTER INSERT ON wizyty
+FOR EACH ROW EXECUTE FUNCTION auto_generate_payment();
+
+CREATE OR REPLACE FUNCTION fn_czy_lekarz_dostepny(
+    p_id_lekarza INT, 
+    p_data TIMESTAMP, 
+    p_godzina TIMESTAMP
+) RETURNS BOOLEAN AS $$
+DECLARE
+    v_zajety INT;
+BEGIN
+    SELECT COUNT(*) INTO v_zajety
+    FROM wizyty
+    WHERE id_lekarza = p_id_lekarza
+      AND data = p_data
+      AND godzina = p_godzina
+      AND status != 'Anulowana';
+      
+    IF v_zajety > 0 THEN
+        RETURN FALSE; -- Lekarz jest zajęty
+    ELSE
+        RETURN TRUE;  -- Lekarz jest wolny
+    END IF;
+END;
+$$ LANGUAGE plpgsql;

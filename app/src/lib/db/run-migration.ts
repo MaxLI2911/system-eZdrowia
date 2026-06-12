@@ -8,9 +8,7 @@ async function main() {
     const migrationsDir = path.join(process.cwd(), "src/lib/db/migrations");
     
     const customSqlFiles = [
-      "0001_proc_and_triggers.sql",
-      "0002_future_date_trigger.sql"
-    ];
+      "0001_proc_and_triggers.sql"];
 
     console.log("Injecting custom SQL code into database...");
 
@@ -18,7 +16,7 @@ async function main() {
       const filePath = path.join(migrationsDir, fileName);
       
       if (fs.existsSync(filePath)) {
-        console.log(`🚀 Applying: ${fileName}`);
+        console.log(`Applying: ${fileName}`);
         const sqlString = fs.readFileSync(filePath, "utf-8");
         await db.execute(sql.raw(sqlString));
       } else {

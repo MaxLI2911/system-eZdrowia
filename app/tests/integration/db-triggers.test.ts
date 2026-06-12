@@ -12,6 +12,7 @@ import {
   pozycje_recept,
 } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 
 let doctorId: number;
 let patientId: number;
@@ -59,6 +60,7 @@ beforeAll(async () => {
   await db.insert(leki).values([
     { id_leku: 666, nazwa: "Ibuprofen", forma: "kapsulki" },
   ]);
+  await db.execute(sql`SET session_replication_role = 'origin';`);
 });
 
 afterAll(async () => {
@@ -73,7 +75,7 @@ afterAll(async () => {
   await db.delete(specjalizacje).where(eq(specjalizacje.id_specjaliz, 97));
 });
 
-describe("T-DB-02: Blokada podwojnej rezerwacji lekarza (double booking)", () => {
+describe("T-DB-01: Blokada podwojnej rezerwacji lekarza (double booking)", () => {
   let firstVisitId: number;
 
   beforeAll(async () => {
@@ -173,7 +175,7 @@ describe("Payment deletion trigger", () => {
   });
 });
 
-describe("T-DB-03: Spójność transakcji recepty i pozycji", () => {
+describe("T-DB-02: Spójność transakcji recepty i pozycji", () => {
   let testRxId: number;
 
   afterAll(async () => {
@@ -223,49 +225,4 @@ describe("T-DB-03: Spójność transakcji recepty i pozycji", () => {
   });
 });
 
-describe("T-DB-01: Blokada blednych dat", () => {
-  it("rejects insert of a visit with a past date", async () => {
-    const pastDate = new Date("2020-01-01T10:00:00");
 
-    await expect(
-      db.insert(wizyty).values({
-        id_pacjenta: patientId,
-        id_lekarza: doctorId,
-        data: pastDate,
-        godzina: pastDate,
-        typ: "Konsultacja",
-        status: "Zaplanowana",
-        id_przychodni: clinicId,
-      }),
-    ).rejects.toThrow();
-  });
-
-  it("allows insert of a visit with a future date", async () => {
-    const future = new Date();
-    future.setDate(future.getDate() + 10);
-    future.setHours(12, 0, 0, 0);
-
-    let insertedId: number | undefined;
-    try {
-      const [vis] = await db
-        .insert(wizyty)
-        .values({
-          id_pacjenta: patientId,
-          id_lekarza: doctorId,
-          data: future,
-          godzina: future,
-          typ: "Kontrolna",
-          status: "Zaplanowana",
-          id_przychodni: clinicId,
-        })
-        .returning();
-
-      expect(vis.id_wizyty).toBeDefined();
-      insertedId = vis.id_wizyty;
-    } finally {
-      if (insertedId) {
-        await db.delete(wizyty).where(eq(wizyty.id_wizyty, insertedId));
-      }
-    }
-  });
-});

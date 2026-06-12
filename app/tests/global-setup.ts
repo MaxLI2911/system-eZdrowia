@@ -1,8 +1,10 @@
 import path from "path";
 import pg from "pg";
 import dotenv from "dotenv";
+import fs from "fs";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { sql } from "drizzle-orm";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.test") });
 
@@ -42,9 +44,30 @@ async function ensureDatabase(): Promise<void> {
 async function runMigrations(): Promise<void> {
   const db = drizzle(TEST_URL);
   try {
+    console.log("[TEST SETUP] Running Drizzle migrations...");
     await migrate(db, {
       migrationsFolder: path.resolve(__dirname, "../src/lib/db/migrations"),
     });
+
+    console.log("[TEST SETUP] Injecting custom procedures and triggers...");
+    const migrationsDir = path.resolve(__dirname, "../src/lib/db/migrations");
+    
+    const customSqlFiles = [
+      "0001_proc_and_triggers.sql"];
+
+    for (const fileName of customSqlFiles) {
+      const filePath = path.join(migrationsDir, fileName);
+      if (fs.existsSync(filePath)) {
+        console.log(`   Applying: ${fileName}`);
+        const sqlString = fs.readFileSync(filePath, "utf-8");
+        await db.execute(sql.raw(sqlString));
+      }
+    }
+    console.log("[TEST SETUP] Custom SQL applied successfully.");
+
+  } catch (error) {
+    console.error("[TEST SETUP] Failed during migrations:", error);
+    throw error;
   } finally {
     await db.$client.end();
   }
