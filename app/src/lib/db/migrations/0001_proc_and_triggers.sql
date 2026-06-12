@@ -158,3 +158,17 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_transaction_amount() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.kwota < 0 THEN
+        RAISE EXCEPTION 'Kwota transakcji nie moze byc ujemna! Podano: %', NEW.kwota;
+    END IF;
+    RETURN NEW; 
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_check_platnosci_amount ON platnosci;
+CREATE TRIGGER trg_check_platnosci_amount
+AFTER INSERT OR UPDATE ON platnosci
+FOR EACH ROW EXECUTE FUNCTION check_transaction_amount();
