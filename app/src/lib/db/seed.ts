@@ -362,6 +362,7 @@ async function main() {
 }
 
 async function resetData() {
+  await db.execute(sql`SET session_replication_role = 'replica';`);
   await db.delete(schema.uslugi_w_wizytach);
   await db.delete(schema.pozycje_recept);
   await db.delete(schema.pozycje_historii_leczenia);
@@ -377,6 +378,7 @@ async function resetData() {
   await db.delete(schema.pacjenci);
   await db.delete(schema.przychodnie);
   await db.delete(schema.specjalizacje);
+  await db.execute(sql`SET session_replication_role = 'origin';`);
 }
 
 main().catch((error) => {

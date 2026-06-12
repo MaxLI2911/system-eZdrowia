@@ -5,14 +5,31 @@ import { sql } from "drizzle-orm";
 
 async function main() {
   try {
-    const filePath = path.join(process.cwd(), "src/lib/db/migrations/0001_proc_and_triggers.sql");
-    const sqlString = fs.readFileSync(filePath, "utf-8");
+    const migrationsDir = path.join(process.cwd(), "src/lib/db/migrations");
     
-    console.log("Injecting code into database...");
-    await db.execute(sql.raw(sqlString));
+    const customSqlFiles = [
+      "0001_proc_and_triggers.sql",
+      "0002_future_date_trigger.sql"
+    ];
+
+    console.log("Injecting custom SQL code into database...");
+
+    for (const fileName of customSqlFiles) {
+      const filePath = path.join(migrationsDir, fileName);
+      
+      if (fs.existsSync(filePath)) {
+        console.log(`🚀 Applying: ${fileName}`);
+        const sqlString = fs.readFileSync(filePath, "utf-8");
+        await db.execute(sql.raw(sqlString));
+      } else {
+        console.log(`File not found, skipping: ${fileName}`);
+      }
+    }
+
+    console.log("All custom procedures and triggers are successfully applied!");
     process.exit(0);
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error during custom migration:", error);
     process.exit(1);
   }
 }

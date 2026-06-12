@@ -2,6 +2,7 @@
   "name": "drizzle-starter",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
@@ -11,8 +12,8 @@
     "seed": "tsx src/lib/db/seed.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:unit": "vitest run --config vitest.unit.config.ts",
-    "test:integration": "vitest run --config vitest.integration.config.ts"
+    "test:unit": "vitest run --config vitest.unit.config.mts",
+    "test:integration": "vitest run --config vitest.integration.config.mts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
