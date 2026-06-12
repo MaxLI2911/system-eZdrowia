@@ -226,3 +226,57 @@ describe("T-DB-02: Spójność transakcji recepty i pozycji", () => {
 });
 
 
+describe("T-DB-03: Blokada ujemnych kwot", () => {
+  let testVisitId: number;
+
+  beforeAll(async () => {
+    const [vis] = await db
+      .insert(wizyty)
+      .values({
+        id_pacjenta: patientId,
+        id_lekarza: doctorId,
+        data: new Date("2026-12-01"),
+        godzina: new Date("2026-12-01T10:00:00"),
+        typ: "Konsultacja",
+        status: "Zaplanowana",
+        id_przychodni: clinicId,
+      })
+      .returning();
+    testVisitId = vis.id_wizyty;
+  });
+
+  afterAll(async () => {
+    if (testVisitId) {
+      await db.delete(platnosci).where(eq(platnosci.id_wizyty, testVisitId));
+      await db.delete(wizyty).where(eq(wizyty.id_wizyty, testVisitId));
+    }
+  });
+
+  it("rejects insert of a payment with a negative amount", async () => {
+    let errorCaught = false;
+
+    try {
+      await db.transaction(async (tx) => {
+        await tx.execute(sql`SET session_replication_role = 'origin';`);
+        await tx.insert(platnosci).values({
+          id_wizyty: testVisitId,
+          kwota: "-150.00", 
+          status: "Oczekujaca",
+          data: new Date("2026-12-01"),
+          metoda: "Karta",
+        });
+      });
+    } catch (error) {
+      errorCaught = true;
+    }
+
+    expect(errorCaught).toBe(true);
+
+    const payments = await db
+      .select()
+      .from(platnosci)
+      .where(eq(platnosci.id_wizyty, testVisitId));
+    
+    expect(payments.filter(p => Number(p.kwota) < 0).length).toBe(0);
+  });
+});
