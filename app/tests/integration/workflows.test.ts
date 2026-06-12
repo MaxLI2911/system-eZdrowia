@@ -246,6 +246,7 @@ describe("listVisits", () => {
   it("filters visits by search", async () => {
     const visits = await listVisits("Konsultacja");
     expect(visits.length).toBeGreaterThan(0);
+    expect(visits.some((v) => v.typ?.includes("Konsultacja"))).toBe(true);
   });
 });
 
@@ -281,6 +282,7 @@ describe("listDoctors", () => {
   it("filters doctors by search", async () => {
     const doctors = await listDoctors("Kowalski");
     expect(doctors.length).toBeGreaterThan(0);
+    expect(doctors.some((d) => d.nazwisko === "Kowalski")).toBe(true);
   });
 });
 

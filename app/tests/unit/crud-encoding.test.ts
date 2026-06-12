@@ -30,8 +30,8 @@ describe("encodeEntityId / decodeEntityId round-trip", () => {
     expect(decoded.id_specjaliz).toBe("7");
   });
 
-  it("uses URI encoding for special characters", () => {
-    const record = { id_przychodni: 1, nazwa: "Klinika Główna", miasto: "Kraków" };
+  it("round-trips integer primary key values", () => {
+    const record = { id_przychodni: 1 };
     const encoded = encodeEntityId("przychodnie", record);
     const decoded = decodeEntityId("przychodnie", encoded);
 

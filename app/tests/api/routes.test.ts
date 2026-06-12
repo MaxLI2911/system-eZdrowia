@@ -136,28 +136,32 @@ describe("POST /api/[entity] - create", () => {
   });
 
   it("creates a record and returns 201", async () => {
-    const response = await entityListPost(
-      new Request("http://localhost/api/pacjenci", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imie: "API",
-          nazwisko: "Created",
-          numer_dokum: "APICRT",
-          data_urodz: new Date("1995-01-01"),
-          plec: "K",
+    let createdId: number | undefined;
+    try {
+      const response = await entityListPost(
+        new Request("http://localhost/api/pacjenci", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            imie: "API",
+            nazwisko: "Created",
+            numer_dokum: "APICRT",
+            data_urodz: new Date("1995-01-01"),
+            plec: "K",
+          }),
         }),
-      }),
-      buildCtx({ entity: "pacjenci" }),
-    );
+        buildCtx({ entity: "pacjenci" }),
+      );
 
-    expect(response.status).toBe(201);
-    const body = await response.json();
-    expect(body.imie).toBe("API");
-
-    await db
-      .delete(pacjenci)
-      .where(eq(pacjenci.id_pacjenta, body.id_pacjenta as number));
+      expect(response.status).toBe(201);
+      const body = await response.json();
+      expect(body.imie).toBe("API");
+      createdId = body.id_pacjenta as number;
+    } finally {
+      if (createdId) {
+        await db.delete(pacjenci).where(eq(pacjenci.id_pacjenta, createdId));
+      }
+    }
   });
 });
 
@@ -224,6 +228,7 @@ describe("DELETE /api/[entity]/[id] - delete", () => {
   });
 
   it("returns 200 with deleted record on success", async () => {
+    let tempId: number | undefined;
     const [temp] = await db
       .insert(pacjenci)
       .values({
@@ -234,18 +239,28 @@ describe("DELETE /api/[entity]/[id] - delete", () => {
         plec: "K",
       })
       .returning();
+    tempId = temp.id_pacjenta;
 
-    const encodedId = encodeEntityId("pacjenci", {
-      id_pacjenta: temp.id_pacjenta,
-    });
+    try {
+      const encodedId = encodeEntityId("pacjenci", {
+        id_pacjenta: tempId,
+      });
 
-    const response = await entityByIdDelete(
-      new Request(`http://localhost/api/pacjenci/${encodedId}`),
-      buildCtx({ entity: "pacjenci", id: encodedId }),
-    );
+      const response = await entityByIdDelete(
+        new Request(`http://localhost/api/pacjenci/${encodedId}`),
+        buildCtx({ entity: "pacjenci", id: encodedId }),
+      );
 
-    expect(response.status).toBe(200);
-    const body = await response.json();
-    expect(body.imie).toBe("DoUsunięciaApi");
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.imie).toBe("DoUsunięciaApi");
+    } finally {
+      if (tempId) {
+        await db
+          .delete(pacjenci)
+          .where(eq(pacjenci.id_pacjenta, tempId))
+          .catch(() => {});
+      }
+    }
   });
 });

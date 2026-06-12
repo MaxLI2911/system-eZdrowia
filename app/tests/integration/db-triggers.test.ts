@@ -245,21 +245,27 @@ describe("T-DB-01: Blokada blednych dat", () => {
     future.setDate(future.getDate() + 10);
     future.setHours(12, 0, 0, 0);
 
-    const [vis] = await db
-      .insert(wizyty)
-      .values({
-        id_pacjenta: patientId,
-        id_lekarza: doctorId,
-        data: future,
-        godzina: future,
-        typ: "Kontrolna",
-        status: "Zaplanowana",
-        id_przychodni: clinicId,
-      })
-      .returning();
+    let insertedId: number | undefined;
+    try {
+      const [vis] = await db
+        .insert(wizyty)
+        .values({
+          id_pacjenta: patientId,
+          id_lekarza: doctorId,
+          data: future,
+          godzina: future,
+          typ: "Kontrolna",
+          status: "Zaplanowana",
+          id_przychodni: clinicId,
+        })
+        .returning();
 
-    expect(vis.id_wizyty).toBeDefined();
-
-    await db.delete(wizyty).where(eq(wizyty.id_wizyty, vis.id_wizyty));
+      expect(vis.id_wizyty).toBeDefined();
+      insertedId = vis.id_wizyty;
+    } finally {
+      if (insertedId) {
+        await db.delete(wizyty).where(eq(wizyty.id_wizyty, insertedId));
+      }
+    }
   });
 });

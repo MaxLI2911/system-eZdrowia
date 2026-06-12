@@ -125,8 +125,6 @@ describe("ENTITY_LIST", () => {
 
     expect(listKeys).toEqual(configKeys);
 
-    for (const key of ALL_ENTITY_KEYS) {
-      expect(configKeys).toContain(key);
-    }
+    expect(ALL_ENTITY_KEYS.slice().sort()).toEqual(configKeys);
   });
 });

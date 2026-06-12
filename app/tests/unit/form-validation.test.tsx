@@ -25,17 +25,21 @@ const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
 
 import { EntityForm } from "@/app/admin/_components/EntityForm";
+import { ENTITY_CONFIGS } from "@/lib/entities";
+
+const pacjent = ENTITY_CONFIGS.pacjenci;
+const L = Object.fromEntries(pacjent.fields.map((f) => [f.name, f.label]));
 
 function fill(field: HTMLElement, value: string) {
   fireEvent.change(field, { target: { value } });
 }
 
 function fillRequired() {
-  fill(screen.getByLabelText("Imie"), "Anna");
-  fill(screen.getByLabelText("Nazwisko"), "Kowalska");
-  fill(screen.getByLabelText("Numer dokumentu"), "ABC123456");
-  fill(screen.getByLabelText("Data urodzenia"), "1990-01-01");
-  fill(screen.getByLabelText("Plec"), "K");
+  fill(screen.getByLabelText(L.imie), "Anna");
+  fill(screen.getByLabelText(L.nazwisko), "Kowalska");
+  fill(screen.getByLabelText(L.numer_dokum), "ABC123456");
+  fill(screen.getByLabelText(L.data_urodz), "1990-01-01");
+  fill(screen.getByLabelText(L.plec), "K");
 }
 
 describe("T-UNIT-01: Walidacja formularza przed wyslaniem", () => {
@@ -53,7 +57,7 @@ describe("T-UNIT-01: Walidacja formularza przed wyslaniem", () => {
   it("shows error when telefon contains letters", () => {
     render(<EntityForm entity="pacjenci" mode="create" />);
     fillRequired();
-    fill(screen.getByLabelText("Telefon"), "abcde");
+    fill(screen.getByLabelText(L.telefon), "abcde");
 
     fireEvent.click(screen.getByRole("button", { name: /zapisz/i }));
 
@@ -65,7 +69,7 @@ describe("T-UNIT-01: Walidacja formularza przed wyslaniem", () => {
   it("does not call API when validation fails", () => {
     render(<EntityForm entity="pacjenci" mode="create" />);
     fillRequired();
-    fill(screen.getByLabelText("Telefon"), "xyz");
+    fill(screen.getByLabelText(L.telefon), "xyz");
 
     fireEvent.click(screen.getByRole("button", { name: /zapisz/i }));
 
@@ -75,7 +79,7 @@ describe("T-UNIT-01: Walidacja formularza przed wyslaniem", () => {
   it("submits successfully when all fields are valid", () => {
     render(<EntityForm entity="pacjenci" mode="create" />);
     fillRequired();
-    fill(screen.getByLabelText("Telefon"), "500100200");
+    fill(screen.getByLabelText(L.telefon), "500100200");
 
     fireEvent.click(screen.getByRole("button", { name: /zapisz/i }));
 

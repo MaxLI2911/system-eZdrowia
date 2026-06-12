@@ -105,6 +105,7 @@ describe("listRecords", () => {
       pageSize: 2,
     });
 
+    expect(result.data.length).toBeGreaterThan(0);
     expect(result.data.length).toBeLessThanOrEqual(2);
   });
 
@@ -144,21 +145,27 @@ describe("getRecord", () => {
 
 describe("createRecord", () => {
   it("creates a new record and returns it", async () => {
-    const result = await createRecord("pacjenci", {
-      imie: "Nowy",
-      nazwisko: "Pacjent",
-      numer_dokum: "DOC999",
-      data_urodz: new Date("2000-01-01"),
-      plec: "M",
-    });
+    let createdId: number | undefined;
+    try {
+      const result = await createRecord("pacjenci", {
+        imie: "Nowy",
+        nazwisko: "Pacjent",
+        numer_dokum: "DOC999",
+        data_urodz: new Date("2000-01-01"),
+        plec: "M",
+      });
 
-    expect(result).not.toBeNull();
-    const r = result as Record<string, unknown>;
-    expect(r.imie).toBe("Nowy");
-
-    await db
-      .delete(pacjenci)
-      .where(eq(pacjenci.id_pacjenta, r.id_pacjenta as number));
+      expect(result).not.toBeNull();
+      const r = result as Record<string, unknown>;
+      expect(r.imie).toBe("Nowy");
+      createdId = r.id_pacjenta as number;
+    } finally {
+      if (createdId) {
+        await db
+          .delete(pacjenci)
+          .where(eq(pacjenci.id_pacjenta, createdId));
+      }
+    }
   });
 
   it("throws on missing required fields", async () => {

@@ -43,8 +43,10 @@ describe("T-UNIT-03: Poprawne renderowanie panelu", () => {
 
   it("renders exactly the number of tiles matching ENTITY_LIST", () => {
     render(<AdminHomePage />);
-    const tiles = screen.getAllByRole("link");
-    expect(tiles).toHaveLength(ENTITY_LIST.length);
+    const grid = document.querySelector(".grid");
+    expect(grid).not.toBeNull();
+    const tiles = grid!.querySelectorAll("a");
+    expect(tiles.length).toBe(ENTITY_LIST.length);
   });
 
   it("renders the hero section with correct heading", () => {
